@@ -1,5 +1,6 @@
 package Utils;
 
+import View.HomeView;
 import model.TablaTokens;
 import model.Token;
 import model.ast.encadenados.NodoEncadenado;
@@ -20,6 +21,7 @@ import exceptions.sintacticas.*;
 
 import java.io.BufferedReader;
 import java.util.LinkedList;
+import javax.swing.JOptionPane;
 
 public class AnalizadorSintactico {
 
@@ -27,8 +29,10 @@ public class AnalizadorSintactico {
     private Token lookBehind;
     private AnalizadorLexico alexico;
     private TablaSimbolos TS;
+    private HomeView homeView;
 
-    public AnalizadorSintactico(BufferedReader br) throws Exception {
+    public AnalizadorSintactico(BufferedReader br, HomeView homeView) throws Exception {
+        this.homeView = homeView;
         alexico = new AnalizadorLexico(br);
         lookAhead = alexico.getToken();
         lookBehind = null;
@@ -140,7 +144,7 @@ public class AnalizadorSintactico {
         // Si hasta este punto no se lanzaron excepciones, es porque esta todo ok.
         GenCod.close();
         //TS.imprimirEstado();
-        System.out.println("El analisis lexico, sintactico y semantico se realizo de forma exitosa");
+        JOptionPane.showMessageDialog(homeView, "El analisis lexico, sintactico y semantico se realizo de forma exitosa");
     }
 
     @SuppressWarnings("static-access")

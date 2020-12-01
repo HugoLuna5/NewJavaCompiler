@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/model/ast/encadenados/NodoIdEncadenado.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/model/ts/Clase.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Exceptions/lexicas/ExcepcionCharInvalido.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/newjavacompiler/NewJavaCompiler.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Utils/Helper.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/model/TablaTokens.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Utils/GenCod.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/model/ast/encadenados/NodoEncadenado.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Utils/TextLineNumber.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/View/HomeView.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Controller/HomeViewController.java</file>
         </group>
     </open-files>
 </project-private>
