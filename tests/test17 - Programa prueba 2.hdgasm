@@ -1,20 +1,20 @@
 .data 
-VT_A_65: NOP             ; VT de la clase A 
+VT_A_2: NOP             ; VT de la clase A 
 .data 
-VT_Persona_66:                    DW met_getAnio_370 ; Metodo getAnio cuyo offset es 0 
-                   DW met_compareTo_371 ; Metodo compareTo cuyo offset es 1 
-                   DW met_getMes_369 ; Metodo getMes cuyo offset es 2 
-                   DW met_getDia_368 ; Metodo getDia cuyo offset es 3 
+VT_Persona_3:                    DW met_getAnio_17 ; Metodo getAnio cuyo offset es 0 
+                   DW met_compareTo_18 ; Metodo compareTo cuyo offset es 1 
+                   DW met_getMes_16 ; Metodo getMes cuyo offset es 2 
+                   DW met_getDia_15 ; Metodo getDia cuyo offset es 3 
 .data 
-VT_SystemIO_67: NOP             ; VT de la clase SystemIO 
+VT_SystemIO_4: NOP             ; VT de la clase SystemIO 
 .data 
-VT_Object_63: NOP             ; VT de la clase Object 
+VT_Object_0: NOP             ; VT de la clase Object 
 .data 
-VT_System_64: NOP             ; VT de la clase System 
+VT_System_1: NOP             ; VT de la clase System 
 .code 
                    PUSH simple_heap_init 
                    CALL            
-                   PUSH met_main_365 
+                   PUSH met_main_12 
                    CALL            
                    HALT            
 simple_heap_init: RET 0           ; Retorna inmediatamente 
@@ -37,12 +37,12 @@ mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Me
 error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
                    SPRINT          
                    HALT            
-met_A_366: LOADFP          ; Guardar enlace dinamico 
+met_A_13: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_main_365: LOADFP          ; Guardar enlace dinamico 
+met_main_12: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    RMEM 2          ; Se declaran 2 variables locales. Reservo lugar. 
@@ -54,20 +54,20 @@ met_main_365: LOADFP          ; Guardar enlace dinamico
                    PUSH 2016       ; Apilo un 2016 
                    STORE -4        ; Guardo parametro/var local an 
 .data 
-str_374: DW "Creando Persona 1",0 ; Guardo un string 
+str_21: DW "Creando Persona 1",0 ; Guardo un string 
 .code 
-                   PUSH str_374    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_21     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    RMEM 1          ; Reservo espacio para la referencia al objeto del Ctor 
                    PUSH 5          ; Apilo el tamanio del CIR 
                    PUSH simple_malloc ; Preparo llamada a malloc 
                    CALL            ; Invoco al malloc 
                    DUP             ; Duplico la referencia al CIR 
-                   PUSH VT_Persona_66 ; Guardo la etiqueta de la VT en el CIR 
+                   PUSH VT_Persona_3 ; Guardo la etiqueta de la VT en el CIR 
                    STOREREF 0      
                    DUP             
-                   PUSH 66         ; Guardo el ID de la clase en el CIR 
+                   PUSH 3          ; Guardo el ID de la clase en el CIR 
                    STOREREF 1      
                    DUP             
                    PUSH 25         ; Apilo un 25 
@@ -76,24 +76,24 @@ str_374: DW "Creando Persona 1",0 ; Guardo un string
                    SWAP            ; Intercambio this por expresion 
                    PUSH 2016       ; Apilo un 2016 
                    SWAP            ; Intercambio this por expresion 
-                   PUSH met_Persona_367 ; Llamo al constructor (estoy en un new) 
+                   PUSH met_Persona_14 ; Llamo al constructor (estoy en un new) 
                    CALL            
                    STORE 0         ; Guardo parametro/var local a 
 .data 
-str_375: DW "Creando Persona 2",0 ; Guardo un string 
+str_22: DW "Creando Persona 2",0 ; Guardo un string 
 .code 
-                   PUSH str_375    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_22     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    RMEM 1          ; Reservo espacio para la referencia al objeto del Ctor 
                    PUSH 5          ; Apilo el tamanio del CIR 
                    PUSH simple_malloc ; Preparo llamada a malloc 
                    CALL            ; Invoco al malloc 
                    DUP             ; Duplico la referencia al CIR 
-                   PUSH VT_Persona_66 ; Guardo la etiqueta de la VT en el CIR 
+                   PUSH VT_Persona_3 ; Guardo la etiqueta de la VT en el CIR 
                    STOREREF 0      
                    DUP             
-                   PUSH 66         ; Guardo el ID de la clase en el CIR 
+                   PUSH 3          ; Guardo el ID de la clase en el CIR 
                    STOREREF 1      
                    DUP             
                    LOAD -2         ; Cargo parametro/var local d 
@@ -102,10 +102,10 @@ str_375: DW "Creando Persona 2",0 ; Guardo un string
                    SWAP            ; Intercambio this por expresion 
                    LOAD -4         ; Cargo parametro/var local an 
                    SWAP            ; Intercambio this por expresion 
-                   PUSH met_Persona_367 ; Llamo al constructor (estoy en un new) 
+                   PUSH met_Persona_14 ; Llamo al constructor (estoy en un new) 
                    CALL            
                    STORE -1        ; Guardo parametro/var local b 
-                                   ; Comienzo del IF_376 
+                                   ; Comienzo del IF_23 
                    LOAD 0          ; Cargo parametro/var local a 
                    RMEM 1          ; Estoy por hacer llamada encadenada, reservo para el valor de retorno 
                    SWAP            ; Bajo el this 
@@ -115,38 +115,38 @@ str_375: DW "Creando Persona 2",0 ; Guardo un string
                    LOADREF 0       
                    LOADREF 1       ; Cargo el offset del metodo compareTo 
                    CALL            
-                   BF IF_L1_376    
+                   BF IF_L1_23     
 .data 
-str_377: DW "Las personas tienen la misma fecha de nacimiento",0 ; Guardo un string 
+str_24: DW "Las personas tienen la misma fecha de nacimiento",0 ; Guardo un string 
 .code 
-                   PUSH str_377    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_24     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-                   JUMP IF_L2_376  
-IF_L1_376: NOP             ;  
+                   JUMP IF_L2_23   
+IF_L1_23: NOP             ;  
 .data 
-str_378: DW "Las personas cumplen en dias distintos",0 ; Guardo un string 
+str_25: DW "Las personas cumplen en dias distintos",0 ; Guardo un string 
 .code 
-                   PUSH str_378    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_25     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_376: NOP             ;  
-                                   ; Fin del IF_376 
+IF_L2_23: NOP             ;  
+                                   ; Fin del IF_23 
 .data 
-str_379: DW "Creando Persona Nueva",0 ; Guardo un string 
+str_26: DW "Creando Persona Nueva",0 ; Guardo un string 
 .code 
-                   PUSH str_379    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_26     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    RMEM 1          ; Reservo espacio para la referencia al objeto del Ctor 
                    PUSH 5          ; Apilo el tamanio del CIR 
                    PUSH simple_malloc ; Preparo llamada a malloc 
                    CALL            ; Invoco al malloc 
                    DUP             ; Duplico la referencia al CIR 
-                   PUSH VT_Persona_66 ; Guardo la etiqueta de la VT en el CIR 
+                   PUSH VT_Persona_3 ; Guardo la etiqueta de la VT en el CIR 
                    STOREREF 0      
                    DUP             
-                   PUSH 66         ; Guardo el ID de la clase en el CIR 
+                   PUSH 3          ; Guardo el ID de la clase en el CIR 
                    STOREREF 1      
                    DUP             
                    PUSH 1          ; Apilo un 1 
@@ -155,10 +155,10 @@ str_379: DW "Creando Persona Nueva",0 ; Guardo un string
                    SWAP            ; Intercambio this por expresion 
                    PUSH 2000       ; Apilo un 2000 
                    SWAP            ; Intercambio this por expresion 
-                   PUSH met_Persona_367 ; Llamo al constructor (estoy en un new) 
+                   PUSH met_Persona_14 ; Llamo al constructor (estoy en un new) 
                    CALL            
                    STORE -1        ; Guardo parametro/var local b 
-                                   ; Comienzo del IF_380 
+                                   ; Comienzo del IF_27 
                    LOAD 0          ; Cargo parametro/var local a 
                    RMEM 1          ; Estoy por hacer llamada encadenada, reservo para el valor de retorno 
                    SWAP            ; Bajo el this 
@@ -168,27 +168,27 @@ str_379: DW "Creando Persona Nueva",0 ; Guardo un string
                    LOADREF 0       
                    LOADREF 1       ; Cargo el offset del metodo compareTo 
                    CALL            
-                   BF IF_L1_380    
+                   BF IF_L1_27     
 .data 
-str_381: DW "Las personas tienen la misma fecha de nacimiento",0 ; Guardo un string 
+str_28: DW "Las personas tienen la misma fecha de nacimiento",0 ; Guardo un string 
 .code 
-                   PUSH str_381    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_28     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-                   JUMP IF_L2_380  
-IF_L1_380: NOP             ;  
+                   JUMP IF_L2_27   
+IF_L1_27: NOP             ;  
 .data 
-str_382: DW "Las personas cumplen en dias distintos",0 ; Guardo un string 
+str_29: DW "Las personas cumplen en dias distintos",0 ; Guardo un string 
 .code 
-                   PUSH str_382    ; Apilo un string 
-                   PUSH met_printSln_364 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_29     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_380: NOP             ;  
-                                   ; Fin del IF_380 
+IF_L2_27: NOP             ;  
+                                   ; Fin del IF_27 
                    FMEM 5          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_Persona_367: LOADFP          ; Guardar enlace dinamico 
+met_Persona_14: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 6          ; Cargo parametro/var local d 
@@ -205,7 +205,7 @@ met_Persona_367: LOADFP          ; Guardar enlace dinamico
                    STOREREF 4      ; Actualizo el valor de anio 
                    STOREFP         ; Reestablece el contexto 
                    RET 4           ; Retorna de la llamada, liberando parametros 
-met_getAnio_370: LOADFP          ; Guardar enlace dinamico 
+met_getAnio_17: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          ; Cargo referencia al 'this' 
@@ -216,7 +216,7 @@ met_getAnio_370: LOADFP          ; Guardar enlace dinamico
                    RET 1           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_compareTo_371: LOADFP          ; Guardar enlace dinamico 
+met_compareTo_18: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          ; Cargo referencia al 'this' 
@@ -257,7 +257,7 @@ met_compareTo_371: LOADFP          ; Guardar enlace dinamico
                    RET 2           
                    STOREFP         ; Reestablece el contexto 
                    RET 2           ; Retorna de la llamada, liberando parametros 
-met_getMes_369: LOADFP          ; Guardar enlace dinamico 
+met_getMes_16: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          ; Cargo referencia al 'this' 
@@ -268,7 +268,7 @@ met_getMes_369: LOADFP          ; Guardar enlace dinamico
                    RET 1           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_getDia_368: LOADFP          ; Guardar enlace dinamico 
+met_getDia_15: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          ; Cargo referencia al 'this' 
@@ -279,12 +279,12 @@ met_getDia_368: LOADFP          ; Guardar enlace dinamico
                    RET 1           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_SystemIO_373: LOADFP          ; Guardar enlace dinamico 
+met_SystemIO_20: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_readNumero_372: LOADFP          ; Guardar enlace dinamico 
+met_readNumero_19: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    RMEM 3          ; Se declaran 3 variables locales. Reservo lugar. 
@@ -292,8 +292,8 @@ met_readNumero_372: LOADFP          ; Guardar enlace dinamico
                    STORE 0         ; Guardo parametro/var local rta 
                    PUSH 0          ; Apilo un 0 
                    STORE -2        ; Guardo parametro/var local num 
-                                   ; Comienzo del WHILE_383 
-WHILE_L1_383: NOP             ;  
+                                   ; Comienzo del WHILE_30 
+WHILE_L1_30: NOP             ;  
                    LOAD -2         ; Cargo parametro/var local num 
                    PUSH 10         ; Apilo un 10 
                    NE              
@@ -301,16 +301,16 @@ WHILE_L1_383: NOP             ;
                    PUSH 13         ; Apilo un 13 
                    NE              
                    AND             
-                   BF WHILE_L2_383 
+                   BF WHILE_L2_30  
                    RMEM 1          ; Voy a llamar a un metodo estatico (no void), reservo lugar para lo que devuelva 
-                   PUSH met_read_355 ; Preparo para llamar al metodo System.read 
+                   PUSH met_read_2 ; Preparo para llamar al metodo System.read 
                    CALL            
                    STORE -2        ; Guardo parametro/var local num 
                    LOAD -2         ; Cargo parametro/var local num 
                    PUSH 48         ; Apilo un 48 
                    SUB             
                    STORE -1        ; Guardo parametro/var local aux 
-                                   ; Comienzo del IF_384 
+                                   ; Comienzo del IF_31 
                    LOAD -2         ; Cargo parametro/var local num 
                    PUSH 10         ; Apilo un 10 
                    NE              
@@ -318,18 +318,18 @@ WHILE_L1_383: NOP             ;
                    PUSH 13         ; Apilo un 13 
                    NE              
                    AND             
-                   BF IF_L_384     
+                   BF IF_L_31      
                    LOAD 0          ; Cargo parametro/var local rta 
                    PUSH 10         ; Apilo un 10 
                    MUL             
                    LOAD -1         ; Cargo parametro/var local aux 
                    ADD             
                    STORE 0         ; Guardo parametro/var local rta 
-IF_L_384: NOP             ;  
-                                   ; Fin del IF_384 
-                   JUMP WHILE_L1_383 
-WHILE_L2_383: NOP             ;  
-                                   ; Fin del WHILE_383 
+IF_L_31: NOP             ;  
+                                   ; Fin del IF_31 
+                   JUMP WHILE_L1_30 
+WHILE_L2_30: NOP             ;  
+                                   ; Fin del WHILE_30 
                    LOAD 0          ; Cargo parametro/var local rta 
                    STORE 3         
                    FMEM 3          ; Libero 3 variables locales 
@@ -338,37 +338,37 @@ WHILE_L2_383: NOP             ;
                    FMEM 3          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_Object_353: LOADFP          ; Guardar enlace dinamico 
+met_Object_0: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_System_354: LOADFP          ; Guardar enlace dinamico 
+met_System_1: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printC_357: LOADFP          ; Guardar enlace dinamico 
+met_printC_4: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    CPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printS_359: LOADFP          ; Guardar enlace dinamico 
+met_printS_6: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    SPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_println_360: LOADFP          ; Guardar enlace dinamico 
+met_println_7: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printCln_362: LOADFP          ; Guardar enlace dinamico 
+met_printCln_9: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -376,7 +376,7 @@ met_printCln_362: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printSln_364: LOADFP          ; Guardar enlace dinamico 
+met_printSln_11: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -384,21 +384,21 @@ met_printSln_364: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_read_355: LOADFP          ; Guardar enlace dinamico 
+met_read_2: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    READ            
                    STORE 3         
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printB_356: LOADFP          ; Guardar enlace dinamico 
+met_printB_3: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    BPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printIln_363: LOADFP          ; Guardar enlace dinamico 
+met_printIln_10: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -406,14 +406,14 @@ met_printIln_363: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printI_358: LOADFP          ; Guardar enlace dinamico 
+met_printI_5: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    IPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printBln_361: LOADFP          ; Guardar enlace dinamico 
+met_printBln_8: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          

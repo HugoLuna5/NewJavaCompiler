@@ -32,9 +32,12 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
@@ -44,6 +47,11 @@ import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.autocomplete.ShorthandCompletion;
 import vm.CeIVMAPI;
+import vm.CeIVMAPIIOSubSys;
+import vm.CeIVMAPIMemory;
+import vm.CeIVMAPISpecialRegs;
+import vm.exceptions.CeIVMMemoryException;
+import vm.exceptions.CeIVMRuntimeException;
 
 /**
  *
@@ -55,6 +63,16 @@ public class HomeViewController {
     private File openFile;
     private FileManger fileManager;
     private JFrame frameDialog;
+
+    private JButton closeConsole;
+
+    public JTextArea consoleEditor;
+
+    private JPanel jPanel1;
+
+    private JScrollPane jScrollPane1;
+
+    private JButton sendData;
 
     public HomeViewController(HomeView homeView) {
         this.homeView = homeView;
@@ -95,14 +113,19 @@ public class HomeViewController {
 
     }
 
+    private CeIVMAPIIOSubSys io;
+    private CeIVMAPIMemory mem;
+    private CeIVMAPISpecialRegs regs;
+
     private void runProgram() {
         saveDocument();
         try {
             showAlert();
+
         } catch (InterruptedException ex) {
             Logger.getLogger(HomeViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        frameDialog.setVisible(true);
         new Helper().setTimeout(() -> {
 
             if (openFile != null) {
@@ -143,7 +166,6 @@ public class HomeViewController {
                             String line = "";
                             while (r.readLine() != null) {
                                 line += r.readLine() + "\n";
-
                             }
                              */
                             CeIVMAPI ceivmApi = new CeIVMAPI();
@@ -153,8 +175,11 @@ public class HomeViewController {
                                 ceivmApi.loadProgram();
                                 ceivmApi.initializeVM();
                                 ceivmApi.executeToCompletion();
+                                io = ceivmApi.getAccessIO();
+                                mem = ceivmApi.getMemoryAccess();
+                                regs = ceivmApi.getAccessCeIVMAPISpecialRegs();
+
                                 //JOptionPane.showMessageDialog(homeView, line);
-                                frameDialog.setVisible(true);
                             } catch (FileNotFoundException var4) {
                                 System.err.println("Error: No se pudo abrir el archivo " + salida + ".\n");
                             } catch (Exception var5) {
@@ -184,18 +209,81 @@ public class HomeViewController {
 
     public void showAlert() throws InterruptedException {
         frameDialog = new JFrame();
+        frameDialog.setTitle("Consola");
         frameDialog.add(new JLabel("Consola"), BorderLayout.NORTH);
-        JTextArea ta = new JTextArea();
-        Font f = new Font("Serif", Font.PLAIN, 15); 
-        ta.setFont(f);
-        TextAreaOutputStream taos = new TextAreaOutputStream(ta, 60);
+
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        consoleEditor = new javax.swing.JTextArea();
+        closeConsole = new javax.swing.JButton();
+
+        frameDialog.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        frameDialog.setMaximumSize(new java.awt.Dimension(850, 352));
+        frameDialog.setMinimumSize(new java.awt.Dimension(850, 352));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
+        consoleEditor.setColumns(20);
+        consoleEditor.setRows(5);
+        jScrollPane1.setViewportView(consoleEditor);
+
+        closeConsole.setText("Cerrar consola");
+        closeConsole.setMaximumSize(new java.awt.Dimension(155, 45));
+        closeConsole.setMinimumSize(new java.awt.Dimension(155, 45));
+        closeConsole.setPreferredSize(new java.awt.Dimension(155, 45));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(closeConsole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        jPanel1Layout.setVerticalGroup(
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(closeConsole, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(frameDialog.getContentPane());
+        frameDialog.getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        TextAreaOutputStream taos = new TextAreaOutputStream(consoleEditor, 60);
         PrintStream ps = new PrintStream(taos);
         System.setOut(ps);
         System.setErr(ps);
-        frameDialog.add(new JScrollPane(ta));
 
-        frameDialog.pack();
         frameDialog.setSize(850, 300);
+        frameDialog.pack();
+
+        eventsDialog();
+
+    }
+
+    private void eventsDialog() {
+
+        closeConsole.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                frameDialog.setVisible(false);
+            }
+        });
 
     }
 
@@ -208,6 +296,7 @@ public class HomeViewController {
         if (openFile != null) {
             openFile = fileManager.saveDocument(homeView, homeView.textEditor, openFile);
             homeView.setTitle("NewJava - " + openFile.getName());
+            customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
         }
@@ -217,6 +306,8 @@ public class HomeViewController {
         if (openFile != null) {
             openFile = fileManager.saveDocumentAs(homeView, homeView.textEditor);
             homeView.setTitle("NewJava - " + openFile.getName());
+            customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
         }
@@ -239,6 +330,24 @@ public class HomeViewController {
         CompletionProvider provider = new AutoCompleteProvider().createCompletionProvider();
         AutoCompletion ac = new AutoCompletion(provider);
         ac.install(homeView.textEditor);
+    }
+
+    private void customDialog(String title, String message, int type_message) {
+        JOptionPane msg = new JOptionPane(message, type_message);
+        final JDialog dlg = msg.createDialog(title);
+        dlg.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dlg.setVisible(false);
+            }
+        }).start();
+        dlg.setVisible(true);
     }
 
 }

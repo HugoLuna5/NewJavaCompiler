@@ -68,6 +68,20 @@ public class CeIVMAPI {
          return "Estado inválido";
       }
    }
+   
+   public CeIVMAPIMemory getAccessMemoryActions(){
+       
+       return memory;
+   }
+   
+   public CeIVMAPIIOSubSys getAccessIO(){
+       
+       return io;
+   }
+   
+   public CeIVMAPISpecialRegs getAccessCeIVMAPISpecialRegs(){
+       return regFile;
+   }
 
    public void parseAndAssemble(String filename) throws Exception {
       if (this.status != CeIVMAPI.CeIVMAPIPhase.CREATED && this.status != CeIVMAPI.CeIVMAPIPhase.PARSEDANDASSEMBLED) {

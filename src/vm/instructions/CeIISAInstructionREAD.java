@@ -7,29 +7,29 @@ import vm.exceptions.CeIVMMemoryException;
 import vm.exceptions.CeIVMRuntimeException;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class CeIISAInstructionREAD extends CeIISAInstruction {
-   public CeIISAInstructionREAD(String mnemonic) {
-      super(mnemonic);
-   }
 
-   public int getOpcode() {
-      return 60;
-   }
+    public CeIISAInstructionREAD(String mnemonic) {
+        super(mnemonic);
+    }
 
-   public int getNumParameters() {
-      return 0;
-   }
+    public int getOpcode() {
+        return 60;
+    }
 
-   protected void execute(ArrayList<Integer> params, CeIVMAPIMemory mem, CeIVMAPISpecialRegs regs, CeIVMAPIIOSubSys io) throws CeIVMMemoryException, CeIVMRuntimeException {
-      regs.setSp(regs.getSp() - 1);
+    public int getNumParameters() {
+        return 0;
+    }
 
-      try {
-         mem.write(regs.getSp(), io.getInputReader().read());
-      } catch (IOException var6) {
-         throw new CeIVMRuntimeException("Error al ejecutar el READ.", regs.getPc());
-      }
+    protected void execute(ArrayList<Integer> params, CeIVMAPIMemory mem, CeIVMAPISpecialRegs regs, CeIVMAPIIOSubSys io) throws CeIVMMemoryException, CeIVMRuntimeException {
+        regs.setSp(regs.getSp() - 1);
 
-      regs.setPc(regs.getPc() + this.getInstructionSize());
-   }
+        String value = JOptionPane.showInputDialog("Ingresa un dato");
+        System.out.println(value);
+        mem.write(regs.getSp(), value.length());
+
+        regs.setPc(regs.getPc() + this.getInstructionSize());
+    }
 }
