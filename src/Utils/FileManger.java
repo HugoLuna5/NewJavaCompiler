@@ -143,7 +143,6 @@ public class FileManger {
         
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
-           
             txt.read(br, null);
             br.close();
 

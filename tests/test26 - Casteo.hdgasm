@@ -1,0 +1,210 @@
+.data 
+VT_A_107: NOP             ; VT de la clase A 
+.data 
+VT_Mamifero_109:                    DW met_hacerRuido_564 ; Metodo hacerRuido cuyo offset es 0 
+.data 
+VT_Animal_108:                    DW met_hacerRuido_564 ; Metodo hacerRuido cuyo offset es 0 
+.data 
+VT_Object_105: NOP             ; VT de la clase Object 
+.data 
+VT_Perro_110:                    DW met_hacerRuido_567 ; Metodo hacerRuido cuyo offset es 0 
+.data 
+VT_System_106: NOP             ; VT de la clase System 
+.code 
+                   PUSH simple_heap_init 
+                   CALL            
+                   PUSH met_main_562 
+                   CALL            
+                   HALT            
+simple_heap_init: RET 0           ; Retorna inmediatamente 
+simple_malloc: LOADFP          ; Inicialización unidad 
+                   LOADSP          
+                   STOREFP         ; Finaliza inicialización del RA 
+                   LOADHL          ; hl 
+                   DUP             ; hl 
+                   PUSH 1          ; 1 
+                   ADD             ; hl+1 
+                   STORE 4         ; Guarda el resultado (un puntero a la primer celda de la región de memoria) 
+                   LOAD 3          ; Carga la cantidad de celdas a alojar (parámetro que debe ser positivo) 
+                   ADD             
+                   STOREHL         ; Mueve el heap limit (hl). Expande el heap 
+                   STOREFP         
+                   RET 1           ; Retorna eliminando el parámetro 
+.data 
+mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Mensaje para casteos erroneos 
+.code 
+error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
+                   SPRINT          
+                   HALT            
+met_A_563: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_main_562: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
+                   RMEM 1          ; Reservo espacio para la referencia al objeto del Ctor 
+                   PUSH 2          ; Apilo el tamanio del CIR 
+                   PUSH simple_malloc ; Preparo llamada a malloc 
+                   CALL            ; Invoco al malloc 
+                   DUP             ; Duplico la referencia al CIR 
+                   PUSH VT_Perro_110 ; Guardo la etiqueta de la VT en el CIR 
+                   STOREREF 0      
+                   DUP             
+                   PUSH 110        ; Guardo el ID de la clase en el CIR 
+                   STOREREF 1      
+                   DUP             
+                   PUSH met_Perro_568 ; Llamo al constructor (estoy en un new) 
+                   CALL            
+                   STORE 0         ; Guardo parametro/var local a1 
+                   LOAD 0          ; Cargo parametro/var local a1 
+                   DUP             ; Duplico this 
+                   LOADREF 0       
+                   LOADREF 0       ; Cargo el offset del metodo hacerRuido 
+                   CALL            
+                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
+                                   ; Comienzo del IF_569 
+                   LOAD 0          ; Cargo parametro/var local a1 
+                   LOADREF 1       ; Cargo el ID desde el CIR de la expresion analizada (izq) 
+                   PUSH 110        ; Cargo el ID de la Clase (der) 
+                   EQ              ; Comparo los IDs. El resultado queda en el tope de la pila 
+                   BF IF_L_569     
+                   LOAD 0          ; Cargo parametro/var local a1 
+                   DUP             ; Duplico la referencia al objeto 
+                   LOADREF 1       ; Cargo el ID desde el CIR de la expresion analizada (der) 
+                   PUSH 110        ; Cargo el ID de la clase a castear (izq) 
+                   EQ              ; Comparo los IDs 
+                   BF error_cast   ; Casteo incorrecto. Lanzo excepcion 
+                   STORE -1        ; Guardo parametro/var local p1 
+IF_L_569: NOP             ;  
+                                   ; Fin del IF_569 
+                   LOAD -1         ; Cargo parametro/var local p1 
+                   DUP             ; Duplico this 
+                   LOADREF 0       
+                   LOADREF 0       ; Cargo el offset del metodo hacerRuido 
+                   CALL            
+                   FMEM 2          ; Libero las variables locales declaradas dentro de mi bloque 
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_Mamifero_566: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_Animal_565: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_hacerRuido_564: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+.data 
+str_570: DW "AARRGG",0   ; Guardo un string 
+.code 
+                   PUSH str_570    ; Apilo un string 
+                   PUSH met_printSln_561 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_Object_550: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_Perro_568: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_hacerRuido_567: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+.data 
+str_571: DW "GUAU",0     ; Guardo un string 
+.code 
+                   PUSH str_571    ; Apilo un string 
+                   PUSH met_printSln_561 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_System_551: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printC_554: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   CPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printS_556: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   SPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_println_557: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_printCln_559: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   CPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printSln_561: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   SPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_read_552: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   READ            
+                   STORE 3         
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_printB_553: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   BPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printIln_560: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   IPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printI_555: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   IPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printBln_558: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   BPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 

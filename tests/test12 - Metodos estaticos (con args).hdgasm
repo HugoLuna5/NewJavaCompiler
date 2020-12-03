@@ -1,0 +1,268 @@
+.data 
+VT_A_39: NOP             ; VT de la clase A 
+.data 
+VT_B_40: NOP             ; VT de la clase B 
+.data 
+VT_C_41: NOP             ; VT de la clase C 
+.data 
+VT_Object_37: NOP             ; VT de la clase Object 
+.data 
+VT_System_38: NOP             ; VT de la clase System 
+.code 
+                   PUSH simple_heap_init 
+                   CALL            
+                   PUSH met_main_236 
+                   CALL            
+                   HALT            
+simple_heap_init: RET 0           ; Retorna inmediatamente 
+simple_malloc: LOADFP          ; Inicialización unidad 
+                   LOADSP          
+                   STOREFP         ; Finaliza inicialización del RA 
+                   LOADHL          ; hl 
+                   DUP             ; hl 
+                   PUSH 1          ; 1 
+                   ADD             ; hl+1 
+                   STORE 4         ; Guarda el resultado (un puntero a la primer celda de la región de memoria) 
+                   LOAD 3          ; Carga la cantidad de celdas a alojar (parámetro que debe ser positivo) 
+                   ADD             
+                   STOREHL         ; Mueve el heap limit (hl). Expande el heap 
+                   STOREFP         
+                   RET 1           ; Retorna eliminando el parámetro 
+.data 
+mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Mensaje para casteos erroneos 
+.code 
+error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
+                   SPRINT          
+                   HALT            
+met_A_237: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_main_236: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   PUSH 2          ; Apilo un 2 
+                   PUSH 2          ; Apilo un 2 
+                   PUSH 1          ; Apilo TRUE 
+                   PUSH met_m1_238 ; Preparo para llamar al metodo B.m1 
+                   CALL            
+                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
+                   RMEM 1          ; Voy a llamar a un metodo estatico (no void), reservo lugar para lo que devuelva 
+                   PUSH 10         ; Apilo un 10 
+                   PUSH 5          ; Apilo un 5 
+                   PUSH met_m2_240 ; Preparo para llamar al metodo C.m2 
+                   CALL            
+                   STORE 0         ; Guardo parametro/var local aux 
+                                   ; Comienzo del IF_243 
+                   LOAD 0          ; Cargo parametro/var local aux 
+                   PUSH 50         ; Apilo un 50 
+                   EQ              
+                   BF IF_L1_243    
+.data 
+str_244: DW "[OK]",0     ; Guardo un string 
+.code 
+                   PUSH str_244    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   JUMP IF_L2_243  
+IF_L1_243: NOP             ;  
+.data 
+str_245: DW "[ERROR]",0  ; Guardo un string 
+.code 
+                   PUSH str_245    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+IF_L2_243: NOP             ;  
+                                   ; Fin del IF_243 
+                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
+                   RMEM 1          ; Voy a llamar a un metodo estatico (no void), reservo lugar para lo que devuelva 
+                   PUSH 1          ; Apilo TRUE 
+                   PUSH met_m3_241 ; Preparo para llamar al metodo C.m3 
+                   CALL            
+                   STORE -1        ; Guardo parametro/var local rta 
+                                   ; Comienzo del IF_246 
+                   LOAD -1         ; Cargo parametro/var local rta 
+                   NOT             
+                   BF IF_L1_246    
+.data 
+str_247: DW "[OK]",0     ; Guardo un string 
+.code 
+                   PUSH str_247    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   JUMP IF_L2_246  
+IF_L1_246: NOP             ;  
+.data 
+str_248: DW "[ERROR]",0  ; Guardo un string 
+.code 
+                   PUSH str_248    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+IF_L2_246: NOP             ;  
+                                   ; Fin del IF_246 
+                   FMEM 2          ; Libero las variables locales declaradas dentro de mi bloque 
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_B_239: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_m1_238: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                                   ; Comienzo del IF_249 
+                   LOAD 5          ; Cargo parametro/var local a 
+                   LOAD 4          ; Cargo parametro/var local x 
+                   EQ              
+                   LOAD 3          ; Cargo parametro/var local c 
+                   AND             
+                   BF IF_L1_249    
+.data 
+str_250: DW "Entre a m1",0 ; Guardo un string 
+.code 
+                   PUSH str_250    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+.data 
+str_251: DW "[OK]",0     ; Guardo un string 
+.code 
+                   PUSH str_251    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   JUMP IF_L2_249  
+IF_L1_249: NOP             ;  
+.data 
+str_252: DW "[ERROR]",0  ; Guardo un string 
+.code 
+                   PUSH str_252    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+IF_L2_249: NOP             ;  
+                                   ; Fin del IF_249 
+                   STOREFP         ; Reestablece el contexto 
+                   RET 3           ; Retorna de la llamada, liberando parametros 
+met_C_242: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_m2_240: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+.data 
+str_253: DW "Entre a m2",0 ; Guardo un string 
+.code 
+                   PUSH str_253    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   LOAD 4          ; Cargo parametro/var local x 
+                   LOAD 3          ; Cargo parametro/var local y 
+                   MUL             
+                   STORE 5         
+                   FMEM 0          ; Libero 0 variables locales 
+                   STOREFP         
+                   RET 2           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 2           ; Retorna de la llamada, liberando parametros 
+met_m3_241: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+.data 
+str_254: DW "Entre a m3",0 ; Guardo un string 
+.code 
+                   PUSH str_254    ; Apilo un string 
+                   PUSH met_printSln_235 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+                   LOAD 3          ; Cargo parametro/var local c 
+                   NOT             
+                   STORE 4         
+                   FMEM 0          ; Libero 0 variables locales 
+                   STOREFP         
+                   RET 1           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_Object_224: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_System_225: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printC_228: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   CPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printS_230: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   SPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_println_231: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_printCln_233: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   CPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printSln_235: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   SPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_read_226: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   READ            
+                   STORE 3         
+                   STOREFP         ; Reestablece el contexto 
+                   RET 0           ; Retorna de la llamada, liberando parametros 
+met_printB_227: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   BPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printIln_234: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   IPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printI_229: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   IPRINT          
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
+met_printBln_232: LOADFP          ; Guardar enlace dinamico 
+                   LOADSP          ; Inicializar el FP 
+                   STOREFP         ;  
+                   LOAD 3          
+                   BPRINT          
+                   PRNLN           
+                   STOREFP         ; Reestablece el contexto 
+                   RET 1           ; Retorna de la llamada, liberando parametros 
