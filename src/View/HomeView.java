@@ -58,13 +58,12 @@ public class HomeView extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         actionUndo = new javax.swing.JMenuItem();
         actionRedo = new javax.swing.JMenuItem();
+        actionCopy = new javax.swing.JMenuItem();
         actionCut = new javax.swing.JMenuItem();
         actionPaste = new javax.swing.JMenuItem();
         actionSearch = new javax.swing.JMenuItem();
         actionReplace = new javax.swing.JMenuItem();
         actionGoToLine = new javax.swing.JMenuItem();
-        actionShowSearchBar = new javax.swing.JMenuItem();
-        actionShowReplaceBar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -72,10 +71,12 @@ public class HomeView extends javax.swing.JFrame {
         executeProgram = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1086, 780));
-        setPreferredSize(new java.awt.Dimension(1086, 780));
+        setMinimumSize(new java.awt.Dimension(1086, 750));
+        setResizable(false);
 
-        mainContainer.setMaximumSize(new java.awt.Dimension(850, 730));
+        mainContainer.setMaximumSize(new java.awt.Dimension(1086, 750));
+        mainContainer.setMinimumSize(new java.awt.Dimension(1086, 750));
+        mainContainer.setPreferredSize(new java.awt.Dimension(1086, 750));
 
         containerEditor.setMaximumSize(new java.awt.Dimension(850, 724));
         containerEditor.setMinimumSize(new java.awt.Dimension(850, 724));
@@ -106,11 +107,8 @@ public class HomeView extends javax.swing.JFrame {
         );
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mainContainerLayout.createSequentialGroup()
-                .addGroup(mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
-                    .addComponent(containerEditor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 26, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");
@@ -120,7 +118,7 @@ public class HomeView extends javax.swing.JFrame {
         jMenu1.add(openDoc);
 
         openProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
-        openProject.setText("Abrir Proyecto");
+        openProject.setText("Abrir Carpeta");
         jMenu1.add(openProject);
 
         newDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
@@ -151,6 +149,10 @@ public class HomeView extends javax.swing.JFrame {
         actionRedo.setText("Rehacer");
         jMenu2.add(actionRedo);
 
+        actionCopy.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        actionCopy.setText("Copiar");
+        jMenu2.add(actionCopy);
+
         actionCut.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         actionCut.setText("Cortar");
         jMenu2.add(actionCut);
@@ -170,14 +172,6 @@ public class HomeView extends javax.swing.JFrame {
         actionGoToLine.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_MASK));
         actionGoToLine.setText("Ir a la linea");
         jMenu2.add(actionGoToLine);
-
-        actionShowSearchBar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        actionShowSearchBar.setText("Mostrar la barra de búsqueda");
-        jMenu2.add(actionShowSearchBar);
-
-        actionShowReplaceBar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        actionShowReplaceBar.setText("Mostrar la barra de búsqueda para reemplazar");
-        jMenu2.add(actionShowReplaceBar);
 
         jMenuBar1.add(jMenu2);
 
@@ -211,7 +205,7 @@ public class HomeView extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(mainContainer, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
 
         pack();
@@ -219,14 +213,13 @@ public class HomeView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem actionCopy;
     public javax.swing.JMenuItem actionCut;
     public javax.swing.JMenuItem actionGoToLine;
     public javax.swing.JMenuItem actionPaste;
     public javax.swing.JMenuItem actionRedo;
     public javax.swing.JMenuItem actionReplace;
     public javax.swing.JMenuItem actionSearch;
-    public javax.swing.JMenuItem actionShowReplaceBar;
-    public javax.swing.JMenuItem actionShowSearchBar;
     public javax.swing.JMenuItem actionUndo;
     private javax.swing.JPanel containerEditor;
     public javax.swing.JMenuItem executeProgram;

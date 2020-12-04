@@ -11,7 +11,6 @@ import Utils.CreateChildNodes;
 import Utils.FileManger;
 import Utils.GenCod;
 import Utils.Helper;
-import Utils.StatusBar;
 import Utils.TextAreaOutputStream;
 import View.HomeView;
 import exceptions.lexicas.ExcepcionLexica;
@@ -21,10 +20,13 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -39,6 +41,7 @@ import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.AbstractAction;
+import javax.swing.Action;
 import static javax.swing.Action.ACCELERATOR_KEY;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -53,10 +56,15 @@ import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
+import javax.swing.undo.UndoManager;
+import static jdk.nashorn.internal.objects.NativeArray.shift;
 import model.FileNode;
 import org.fife.rsta.ui.GoToDialog;
 import org.fife.rsta.ui.search.FindDialog;
@@ -93,15 +101,17 @@ public class HomeViewController implements SearchListener {
     private File openFile;
     private FileManger fileManager;
     private boolean validation = true;
+    private String salida = null;
 
     /**
      * Custom vars to editor
      */
     private FindDialog findDialog;
     private ReplaceDialog replaceDialog;
-    private FindToolBar findToolBar;
-    private ReplaceToolBar replaceToolBar;
-    private StatusBar statusBar;
+    private UndoManager undoManager = new UndoManager();
+    private UndoAction undoAction = new UndoAction();
+    private RedoAction redoAction = new RedoAction();
+
     /**
      * Custom vars to fileTree
      */
@@ -124,8 +134,7 @@ public class HomeViewController implements SearchListener {
         initVars();
         initSearchDialogs();
         loadTreeDefault("Explorador");
-        statusBar = new StatusBar();
-        homeView.mainContainer.add(statusBar, BorderLayout.SOUTH);
+        homeView.textEditor.getDocument().addUndoableEditListener(new UndoListener());
         events();
     }
 
@@ -178,6 +187,30 @@ public class HomeViewController implements SearchListener {
         /**
          * Edit Actions
          */
+        homeView.actionUndo.addActionListener(undoAction);
+
+        homeView.actionRedo.addActionListener(redoAction);
+
+        homeView.actionCopy.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new DefaultEditorKit.CopyAction();
+            }
+        });
+        homeView.actionCut.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new DefaultEditorKit.CutAction();
+            }
+        });
+
+        homeView.actionPaste.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                new DefaultEditorKit.PasteAction();
+            }
+        });
+
         homeView.actionSearch.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -238,16 +271,9 @@ public class HomeViewController implements SearchListener {
         SearchContext context = findDialog.getSearchContext();
         replaceDialog.setSearchContext(context);
 
-        // Create tool bars and tie their search contexts together also.
-        findToolBar = new FindToolBar(this);
-        findToolBar.setSearchContext(context);
-        replaceToolBar = new ReplaceToolBar(this);
-        replaceToolBar.setSearchContext(context);
-
     }
 
     private void runProgram() {
-        String salida = null;
 
         if (validation) {
             salida = openFile.getAbsolutePath() + "asm";
@@ -265,66 +291,70 @@ public class HomeViewController implements SearchListener {
         }
         frameDialog.setVisible(true);
 
-        if (openFile != null) {
-            try {
-                //Extension valida .hdg
-                File archEntrada = openFile;
-                if (!archEntrada.exists()) {
-                    JOptionPane.showMessageDialog(homeView, "[Error] No existe el archivo de entrada especificado.", "Error", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    // Si no ingresaron archivo de salida, preparo el nombre de uno con extension ceiasm
+        new Helper().setTimeout(() -> {
 
-                    homeView.setTitle("NewJava - " + openFile.getName());
+            if (openFile != null) {
+                try {
+                    //Extension valida .hdg
+                    File archEntrada = openFile;
+                    if (!archEntrada.exists()) {
+                        JOptionPane.showMessageDialog(homeView, "[Error] No existe el archivo de entrada especificado.", "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        // Si no ingresaron archivo de salida, preparo el nombre de uno con extension ceiasm
 
-                    // De ser posible, creo el nuevo archivo
-                    File archSalida = new File(salida);
-                    try {
-                        if (!archSalida.exists()) {
-                            archSalida.createNewFile();
-                        }
-                    } catch (Exception e) {
-                        JOptionPane.showMessageDialog(homeView, "[Error] Fallo al intentar crear el archivo de salida.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                        homeView.setTitle("NewJava - " + openFile.getName());
 
-                    if (archSalida.exists()) {
-                        BufferedWriter bw = new BufferedWriter(new FileWriter(archSalida));
-                        GenCod.setBuffer(bw);
-                        BufferedReader br = new BufferedReader(new FileReader(archEntrada));
-                        AnalizadorSintactico asintactico = new AnalizadorSintactico(br, homeView);
-                        asintactico.analizar();
-
-                        CeIVMAPI ceivmApi = new CeIVMAPI();
+                        // De ser posible, creo el nuevo archivo
+                        File archSalida = new File(salida);
                         try {
-
-                            ceivmApi.disableListingGeneration();
-                            ceivmApi.parseAndAssemble(salida);
-                            ceivmApi.loadProgram();
-                            ceivmApi.initializeVM();
-                            ceivmApi.executeToCompletion();
-
-                        } catch (FileNotFoundException var4) {
-                            System.err.println("Error: No se pudo abrir el archivo " + salida + ".\n");
-                        } catch (Exception var5) {
-                            System.err.println("\n" + var5.getMessage() + "\n");
+                            if (!archSalida.exists()) {
+                                archSalida.createNewFile();
+                            }
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(homeView, "[Error] Fallo al intentar crear el archivo de salida.", "Error", JOptionPane.ERROR_MESSAGE);
                         }
 
-                    }
-                }
+                        if (archSalida.exists()) {
+                            BufferedWriter bw = new BufferedWriter(new FileWriter(archSalida));
+                            GenCod.setBuffer(bw);
+                            BufferedReader br = new BufferedReader(new FileReader(archEntrada));
+                            AnalizadorSintactico asintactico = new AnalizadorSintactico(br, homeView);
+                            asintactico.analizar();
 
-            } catch (IOException e1) {
-                JOptionPane.showMessageDialog(homeView, "Error de archivos. Revisar que el archivo de entrada sea correcto: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (ExcepcionLexica e2) {
-                JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis lexico.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (ExcepcionSintactica e3) {
-                JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis sintactico.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (ExcepcionSemantica e4) {
-                JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis semantico.", "Error", JOptionPane.ERROR_MESSAGE);
-            } catch (Exception e5) {
-                JOptionPane.showMessageDialog(homeView, "Se produjo un error.", "Error", JOptionPane.ERROR_MESSAGE);
+                            CeIVMAPI ceivmApi = new CeIVMAPI();
+                            try {
+
+                                ceivmApi.disableListingGeneration();
+                                ceivmApi.parseAndAssemble(salida);
+                                ceivmApi.loadProgram();
+                                ceivmApi.initializeVM();
+                                ceivmApi.executeToCompletion();
+
+                            } catch (FileNotFoundException var4) {
+                                System.err.println("Error: No se pudo abrir el archivo " + salida + ".\n");
+                            } catch (Exception var5) {
+                                System.err.println("\n" + var5.getMessage() + "\n");
+                            }
+
+                        }
+                    }
+
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(homeView, "Error de archivos. Revisar que el archivo de entrada sea correcto: " + e1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (ExcepcionLexica e2) {
+                    JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis lexico.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (ExcepcionSintactica e3) {
+                    JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis sintactico.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (ExcepcionSemantica e4) {
+                    JOptionPane.showMessageDialog(homeView, "No se pudo completar el analisis semantico.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (Exception e5) {
+                    JOptionPane.showMessageDialog(homeView, "Se produjo un error.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
             }
-        } else {
-            JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
-        }
+
+        }, 1000);
 
     }
 
@@ -332,7 +362,6 @@ public class HomeViewController implements SearchListener {
         frameDialog = new JFrame();
         frameDialog.setTitle("Consola");
         frameDialog.add(new JLabel("Consola"), BorderLayout.NORTH);
-
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         consoleEditor = new javax.swing.JTextArea();
@@ -390,6 +419,13 @@ public class HomeViewController implements SearchListener {
         PrintStream ps = new PrintStream(taos);
         System.setOut(ps);
         System.setErr(ps);
+        frameDialog.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        frameDialog.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                // do whatever else
+                frameDialog.setVisible(false);
+            }
+        });
 
         frameDialog.setSize(850, 300);
         frameDialog.pack();
@@ -573,6 +609,57 @@ public class HomeViewController implements SearchListener {
     @Override
     public String getSelectedText() {
         return homeView.textEditor.getSelectedText();
+    }
+
+    class UndoListener implements UndoableEditListener {
+
+        public void undoableEditHappened(UndoableEditEvent e) {
+            undoManager.addEdit(e.getEdit());
+            undoAction.update();
+            redoAction.update();
+        }
+    }
+
+    class UndoAction extends AbstractAction {
+
+        public UndoAction() {
+            this.putValue(Action.NAME, undoManager.getUndoPresentationName());
+            this.setEnabled(false);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (this.isEnabled()) {
+                undoManager.undo();
+                undoAction.update();
+                redoAction.update();
+            }
+        }
+
+        public void update() {
+            this.putValue(Action.NAME, undoManager.getUndoPresentationName());
+            this.setEnabled(undoManager.canUndo());
+        }
+    }
+
+    class RedoAction extends AbstractAction {
+
+        public RedoAction() {
+            this.putValue(Action.NAME, undoManager.getRedoPresentationName());
+            this.setEnabled(false);
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            if (this.isEnabled()) {
+                undoManager.redo();
+                undoAction.update();
+                redoAction.update();
+            }
+        }
+
+        public void update() {
+            this.putValue(Action.NAME, undoManager.getRedoPresentationName());
+            this.setEnabled(undoManager.canRedo());
+        }
     }
 
 }

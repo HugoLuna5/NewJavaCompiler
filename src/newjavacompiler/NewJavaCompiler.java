@@ -35,7 +35,11 @@ public class NewJavaCompiler {
     }
     
     public static void main(String[] args) {
-        new NewJavaCompiler();
+        try{
+            new NewJavaCompiler();
+        }catch(NullPointerException nullP){
+            System.err.println("Error: "+nullP.getMessage());
+        }
     }
      
      

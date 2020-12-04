@@ -27,8 +27,6 @@ public class CreateChildNodes {
         createChildren(fileRoot, root);
     }
 
-  
-
     private void createChildren(File fileRoot,
             DefaultMutableTreeNode node) {
         File[] files = fileRoot.listFiles();
@@ -38,21 +36,24 @@ public class CreateChildNodes {
 
         for (File file : files) {
 
-            Optional<String> extOp = getExtensionByStringHandling(file.getName());
-            String ext = extOp.get();
+            try {
+                Optional<String> extOp = getExtensionByStringHandling(file.getName());
+                String ext = extOp.get();
 
-            
-            if (ext.equalsIgnoreCase("hdg")) {
-                DefaultMutableTreeNode childNode
-                        = new DefaultMutableTreeNode(new FileNode(file));
-                node.add(childNode);
-            } else {
-                if (file.isDirectory()) {
+                if (ext.equalsIgnoreCase("hdg")) {
                     DefaultMutableTreeNode childNode
                             = new DefaultMutableTreeNode(new FileNode(file));
                     node.add(childNode);
-                    createChildren(file, childNode);
+                } else {
+                    if (file.isDirectory()) {
+                        DefaultMutableTreeNode childNode
+                                = new DefaultMutableTreeNode(new FileNode(file));
+                        node.add(childNode);
+                        createChildren(file, childNode);
+                    }
                 }
+            } catch (NullPointerException nullPoin) {
+                System.err.println("Error extension file: " + nullPoin.getMessage());
             }
 
         }
