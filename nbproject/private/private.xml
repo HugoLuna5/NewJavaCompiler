@@ -3,30 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Controller/CeIVM.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMAssemblerLinkerAndLoader.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/View/HomeView.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSUB.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIVMAPISpecialRegs.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMToken.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMParser.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSTOREPC.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIVMAPI.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSWAP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSTORE.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIVMAPIIOSubSys.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSTOREFP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionPOP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CUP$CeIASMParser$actions.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMLexicalAnalyzer.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIVMAPIExecutionEngine.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIISA.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Utils/TextAreaOutputStream.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/instructions/CeIISAInstructionSTOREHP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIVMAPIMemory.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMAssembledLocation.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/Controller/HomeViewController.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompilerWithOuthGenCode/src/vm/CeIASMPendingLabel.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/View/HomeView.java</file>
         </group>
     </open-files>
 </project-private>

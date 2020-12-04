@@ -30,8 +30,28 @@ public class FileManger {
     private JFileChooser selectorDeArchivos;
 
     /**
+     * Open a folder
+     *
+     * @return
+     */
+    public String openFolder() {
+        String route = null;
+        selectorDeArchivos = new JFileChooser("Abrir carpeta de trabajo");
+        selectorDeArchivos.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        selectorDeArchivos.setAcceptAllFileFilterUsed(false);
+
+        int state = selectorDeArchivos.showOpenDialog(selectorDeArchivos);
+        if (state == JFileChooser.APPROVE_OPTION) {
+            route = selectorDeArchivos.getSelectedFile().getPath();
+        }
+
+        return route;
+    }
+
+    /**
      * Open a document and show info in text editor
-     * @return 
+     *
+     * @return
      */
     public File openDocument() {
         File file = null;
@@ -74,12 +94,13 @@ public class FileManger {
 
         return f;
     }
-    
+
     /**
      * Save document with the content on the text editor with another name
+     *
      * @param homeView
      * @param textPane
-     * @return 
+     * @return
      */
     public File saveDocumentAs(HomeView homeView, JTextArea textPane) {
         File f = null;
@@ -109,10 +130,11 @@ public class FileManger {
 
     /**
      * Save document with the content on the text editor in file already open
+     *
      * @param homeView
      * @param textPane
      * @param f
-     * @return 
+     * @return
      */
     public File saveDocument(HomeView homeView, JTextArea textPane, File f) {
         BufferedWriter bw;
@@ -120,6 +142,7 @@ public class FileManger {
         try {
 
             bw = new BufferedWriter(new FileWriter(f));
+            System.err.println(f.getAbsolutePath());
             f = selectorDeArchivos.getSelectedFile();
 
             textPane.write(bw);
@@ -132,15 +155,33 @@ public class FileManger {
         return f;
     }
 
+    public File saveDocumentTree(HomeView homeView, JTextArea textPane, String path) {
+        File newFile = null;
+
+        try {
+
+            newFile = new File(path);
+            FileWriter myWriter = new FileWriter(path);
+            myWriter.write(textPane.getText());
+            myWriter.close();
+
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
+        }
+
+        return newFile;
+    }
+
     /**
      * Read content of file selected and showing in text editor
+     *
      * @param file
      * @param homeView
      * @param txt
-     * @return 
+     * @return
      */
     public void readDocument(File file, HomeView homeView, JTextArea txt) {
-        
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             txt.read(br, null);
@@ -150,7 +191,6 @@ public class FileManger {
             JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
         }
 
-       
     }
 
 }

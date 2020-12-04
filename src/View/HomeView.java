@@ -16,13 +16,21 @@ import org.fife.ui.rsyntaxtextarea.*;
  */
 public class HomeView extends javax.swing.JFrame {
 
-    
+    public RSyntaxTextArea textEditor;
+    public RTextScrollPane sp;
+
     /**
      * Creates new form HomeView
      */
     public HomeView() {
         initComponents();
-       
+        textEditor = new RSyntaxTextArea(20, 60);
+        textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        textEditor.setCodeFoldingEnabled(true);
+        sp = new RTextScrollPane(textEditor);
+        sp.setSize(850, 730);
+        containerEditor.add(sp);
+
     }
 
     /**
@@ -35,11 +43,13 @@ public class HomeView extends javax.swing.JFrame {
     private void initComponents() {
 
         mainContainer = new javax.swing.JPanel();
-        textEditor = new RSyntaxTextArea(20, 60);
-        sp = new RTextScrollPane(textEditor);
+        containerEditor = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        filesTree = new javax.swing.JTree();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         openDoc = new javax.swing.JMenuItem();
+        openProject = new javax.swing.JMenuItem();
         newDoc = new javax.swing.JMenuItem();
         saveDoc = new javax.swing.JMenuItem();
         saveDocAs = new javax.swing.JMenuItem();
@@ -59,21 +69,37 @@ public class HomeView extends javax.swing.JFrame {
 
         mainContainer.setMaximumSize(new java.awt.Dimension(850, 730));
 
-        textEditor.setColumns(20);
-        textEditor.setRows(5);
-        sp.setViewportView(textEditor);
-        textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
-        textEditor.setCodeFoldingEnabled(true);
+        containerEditor.setMaximumSize(new java.awt.Dimension(850, 724));
+        containerEditor.setMinimumSize(new java.awt.Dimension(850, 724));
+
+        javax.swing.GroupLayout containerEditorLayout = new javax.swing.GroupLayout(containerEditor);
+        containerEditor.setLayout(containerEditorLayout);
+        containerEditorLayout.setHorizontalGroup(
+            containerEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        containerEditorLayout.setVerticalGroup(
+            containerEditorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 724, Short.MAX_VALUE)
+        );
+
+        filesTree.setMaximumSize(null);
+        filesTree.setMinimumSize(null);
+        jScrollPane1.setViewportView(filesTree);
 
         javax.swing.GroupLayout mainContainerLayout = new javax.swing.GroupLayout(mainContainer);
         mainContainer.setLayout(mainContainerLayout);
         mainContainerLayout.setHorizontalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+            .addGroup(mainContainerLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)
+            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
         );
 
         jMenu1.setText("Archivo");
@@ -81,6 +107,10 @@ public class HomeView extends javax.swing.JFrame {
         openDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
         openDoc.setText("Abrir");
         jMenu1.add(openDoc);
+
+        openProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        openProject.setText("Abrir Proyecto");
+        jMenu1.add(openProject);
 
         newDoc.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         newDoc.setText("Nuevo");
@@ -158,9 +188,11 @@ public class HomeView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel containerEditor;
     public javax.swing.JMenuItem executeProgram;
     public javax.swing.JMenu executeProgramMenu;
     public javax.swing.JMenuItem exitProg;
+    public javax.swing.JTree filesTree;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     public javax.swing.JMenu jMenu3;
@@ -171,13 +203,13 @@ public class HomeView extends javax.swing.JFrame {
     public javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     public javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mainContainer;
     public javax.swing.JMenuItem newDoc;
     public javax.swing.JMenuItem openDoc;
+    public javax.swing.JMenuItem openProject;
     public javax.swing.JMenuItem saveDoc;
     public javax.swing.JMenuItem saveDocAs;
-    public RTextScrollPane sp;
-    public RSyntaxTextArea textEditor;
     // End of variables declaration//GEN-END:variables
 
 }
