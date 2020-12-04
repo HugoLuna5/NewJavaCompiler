@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -76,15 +77,20 @@ public class FileManger {
         if (estado == JFileChooser.APPROVE_OPTION) {
             f = selectorDeArchivos.getSelectedFile();
 
-            BufferedWriter bw;
-
             try {
+              
+                String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
 
-                bw = new BufferedWriter(new FileWriter(f));
-                f = selectorDeArchivos.getSelectedFile();
-                textPane.setText("");
-                textPane.write(bw);
-                bw.close();
+
+                String content = "class " + name + " { \n\n"
+                        + "     static void main() { \n\n"
+                        + "         (System.printSln(\"Hola Mundo\"));\n"
+                        + "     }\n"
+                        + "}";
+
+                FileWriter myWriter = new FileWriter(f);
+                myWriter.write(content);
+                myWriter.close();
 
             } catch (IOException ex) {
                 JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
@@ -94,6 +100,8 @@ public class FileManger {
 
         return f;
     }
+
+  
 
     /**
      * Save document with the content on the text editor with another name
@@ -182,13 +190,15 @@ public class FileManger {
      */
     public void readDocument(File file, HomeView homeView, JTextArea txt) {
 
-        try {
+        if (file != null) {
+            try {
             BufferedReader br = new BufferedReader(new FileReader(file));
             txt.read(br, null);
             br.close();
 
         } catch (IOException ex) {    //en caso de que ocurra una excepción
             JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
+        }
         }
 
     }

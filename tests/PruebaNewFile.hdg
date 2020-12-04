@@ -1,0 +1,7 @@
+class PruebaNewFile { 
+
+     static void main() { 
+
+         (System.printSln("Hola Mundo"));
+     }
+}

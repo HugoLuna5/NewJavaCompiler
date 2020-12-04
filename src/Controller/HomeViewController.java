@@ -486,7 +486,9 @@ public class HomeViewController implements SearchListener {
 
     private void createNewDoc() {
         openFile = fileManager.createNewDocument(homeView, homeView.textEditor);
+        fileManager.readDocument(openFile, homeView, homeView.textEditor);
         homeView.setTitle("NewJava - " + openFile.getName());
+        loadTreeDefault(openFile.getName());
     }
 
     private void saveDocument() {
