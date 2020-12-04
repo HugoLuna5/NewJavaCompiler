@@ -7,11 +7,14 @@ package Controller;
 
 import Utils.AnalizadorSintactico;
 import Utils.AutoCompleteProvider;
+import Utils.Config;
 import Utils.CreateChildNodes;
 import Utils.FileManger;
 import Utils.GenCod;
 import Utils.Helper;
 import Utils.TextAreaOutputStream;
+import View.ConfigEditorView;
+import View.ConfigThemeView;
 import View.HomeView;
 import exceptions.lexicas.ExcepcionLexica;
 import exceptions.semanticas.ExcepcionSemantica;
@@ -43,6 +46,7 @@ import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import static javax.swing.Action.ACCELERATOR_KEY;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -53,7 +57,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.event.UndoableEditEvent;
@@ -80,6 +86,7 @@ import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.autocomplete.ShorthandCompletion;
 import org.fife.rsta.ui.GoToDialog;
 import org.fife.rsta.ui.SizeGripIcon;
+import org.fife.ui.rsyntaxtextarea.Theme;
 
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
@@ -139,31 +146,30 @@ public class HomeViewController implements SearchListener {
     }
 
     private void initVars() {
+        new Config().setThemeConfig();
         homeView.setResizable(false);
         fileManager = new FileManger();
         configAutoComplete();
+        new Config().setEditorConfig(homeView.textEditor);
+
     }
 
     private void events() {
 
         homeView.openProject.addActionListener((ActionEvent ae) -> {
-            fileManager = new FileManger();
             actionOpenProject();
         });
 
         homeView.openDoc.addActionListener((ActionEvent ae) -> {
-            fileManager = new FileManger();
             actionOpenDoc();
             validation = true;
         });
 
         homeView.newDoc.addActionListener((ActionEvent ae) -> {
-            fileManager = new FileManger();
             createNewDoc();
         });
 
         homeView.saveDoc.addActionListener((ActionEvent ae) -> {
-            fileManager = new FileManger();
             if (validation) {
                 saveDocument();
             } else {
@@ -172,7 +178,6 @@ public class HomeViewController implements SearchListener {
         });
 
         homeView.saveDocAs.addActionListener((ActionEvent ae) -> {
-            fileManager = new FileManger();
             saveDocumentAs();
         });
 
@@ -256,6 +261,31 @@ public class HomeViewController implements SearchListener {
             }
         });
 
+        /**
+         * Config Actions
+         */
+        homeView.actionEditorConfig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                homeView.setVisible(false);
+                new ConfigEditorController(new ConfigEditorView());
+            }
+        });
+
+        homeView.actionChangeTheme.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                homeView.setVisible(false);
+                new ConfigThemeController(new ConfigThemeView());
+            }
+        });
+
+        homeView.actionFontConfig.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+            }
+        });
+
     }
 
     /**
@@ -321,6 +351,18 @@ public class HomeViewController implements SearchListener {
                             AnalizadorSintactico asintactico = new AnalizadorSintactico(br, homeView);
                             asintactico.analizar();
 
+                            /*
+                             ProcessBuilder builder = new ProcessBuilder(
+                                    "cmd.exe", "/c", "java -jar \"C:\\Users\\Hugo Luna\\Documents\\NetBeansProjects\\NewJavaCompiler\\libs\\CeIVM-cei2011.jar\" \"" + salida + "\" ");
+                            builder.redirectErrorStream(true);
+                            Process p = builder.start();
+                            BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                            String line = "";
+                            while (r.readLine() != null) {
+                                line += r.readLine() + "\n";
+                            }
+                            JOptionPane.showMessageDialog(homeView, line);
+                             */
                             CeIVMAPI ceivmApi = new CeIVMAPI();
                             try {
 
@@ -609,6 +651,36 @@ public class HomeViewController implements SearchListener {
     @Override
     public String getSelectedText() {
         return homeView.textEditor.getSelectedText();
+    }
+
+    /**
+     * Changes the Look and Feel.
+     */
+    private class LookAndFeelAction extends AbstractAction {
+
+        private LookAndFeelInfo info;
+
+        LookAndFeelAction(LookAndFeelInfo info) {
+            putValue(NAME, info.getName());
+            this.info = info;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                UIManager.setLookAndFeel(info.getClassName());
+                SwingUtilities.updateComponentTreeUI(homeView);
+                if (findDialog != null) {
+                    findDialog.updateUI();
+                    replaceDialog.updateUI();
+                }
+                homeView.pack();
+            } catch (RuntimeException re) {
+                throw re; // FindBugs
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
     }
 
     class UndoListener implements UndoableEditListener {

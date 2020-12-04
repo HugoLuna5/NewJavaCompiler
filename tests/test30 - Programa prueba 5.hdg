@@ -11,7 +11,7 @@ class A {
 		d1 = (SystemIO.readNumero());
 		(System.printS("Ingrese un mes: "));
 		m1 = (SystemIO.readNumero());
-		(System.printS("Ingrese un anio: "));
+		(System.printS("Ingrese un año: "));
 		a1 = (SystemIO.readNumero());
 		
 		(System.printS("Creando Persona 1"));
@@ -21,7 +21,7 @@ class A {
 		d2 = (SystemIO.readNumero());
 		(System.printS("Ingrese un mes: "));
 		m2 = (SystemIO.readNumero());
-		(System.printS("Ingrese un anio: "));
+		(System.printS("Ingrese un año: "));
 		a2 = (SystemIO.readNumero());
 		
 		(System.printS("Creando Persona 2"));
@@ -68,21 +68,14 @@ class Persona {
 
 class SystemIO extends System {
 
-	/* 	Lee una secuencia de digitos terminada en enter y la transforma. 
-		Se asume que la secuencia contiene solamente digitos (no caracteres)
-	*/
+	
 	static int readNumero() {
 	
-		int rta, aux, num;
-		rta = 0;
-		num = 0;
-		while ((num!=10) && (num!=13)) { // mientras que no sea enter
-			num = (System.read());
-			aux = num - 48;
-			if ((num!=10) && (num!=13))
-				rta = rta * 10 + aux;
-		}
-		(System.read()); // limpio buffer
+		int rta;
+		
+		 
+		rta = (System.read());
+		
 		return rta;
 	}
 

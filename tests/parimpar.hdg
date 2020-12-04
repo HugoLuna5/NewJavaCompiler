@@ -1,0 +1,17 @@
+class ParImpar {
+
+	static void main() {
+		
+		int numero;
+		
+		numero = 2;
+
+		if(numero % 2 == 0) {
+			(System.printSln("Es par"));
+		}else{
+			(System.printSln("Es impar"));
+		}
+		
+	}
+	
+}

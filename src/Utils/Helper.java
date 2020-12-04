@@ -56,6 +56,7 @@ public class Helper {
             case "PR_Boolean":
             case "PR_Char" :
             case "PR_Int" :
+            case "PR_Float":
             case "PR_String" :
             case "idClase" : return true;
             default: return false;

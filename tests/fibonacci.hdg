@@ -1,0 +1,30 @@
+class Fibonacci {
+
+	static void main() {
+		int serie, num1, num2, suma, i;
+		serie = 10;
+		num1 = 0; 
+		num2 = 1;
+		suma = 1;
+		i = 1;
+
+		//Mostrar el valor inicial
+		(System.printIln(num1));
+		
+		while (i< serie){
+			//Mostrar la suma
+			(System.printIln(suma));
+
+			//Primero sumamos
+			suma = num1 + num2;
+			//Despues, cambiamos la segunda variable por la primera
+			num1 = num2;
+			//Por ultimo, cambiamos la suma por la segunda variable
+			num2 = suma;
+
+			i = i+1;
+		}
+		
+	}
+
+}

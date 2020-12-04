@@ -43,10 +43,12 @@ public class AutoCompleteProvider {
 
         // Add a couple of "shorthand" completions. These completions don't
         // require the input text to be the same thing as the replacement text.
-        provider.addCompletion(new ShorthandCompletion(provider, "sysout",
-                "System.out.println(", "System.out.println("));
-        provider.addCompletion(new ShorthandCompletion(provider, "syserr",
-                "System.err.println(", "System.err.println("));
+        provider.addCompletion(new ShorthandCompletion(provider, "main", "static void main() {}"));
+        provider.addCompletion(new ShorthandCompletion(provider, "in", "(System.read());"));
+        provider.addCompletion(new ShorthandCompletion(provider, "printIln","(System.printIln());"));
+        provider.addCompletion(new ShorthandCompletion(provider, "printBln", "(System.printBln());"));
+        provider.addCompletion(new ShorthandCompletion(provider, "printSln", "(System.printSln());"));
+
 
         return provider;
 

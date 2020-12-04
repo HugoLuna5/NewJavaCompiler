@@ -26,14 +26,18 @@ public class HomeView extends javax.swing.JFrame {
         initComponents();
         textEditor = new RSyntaxTextArea(20, 60);
         textEditor.setSyntaxEditingStyle(SyntaxConstants.SYNTAX_STYLE_JAVA);
+        
         textEditor.setCodeFoldingEnabled(true);
         textEditor.setMarkOccurrences(true);
+        
         sp = new RTextScrollPane(textEditor);
         sp.setSize(850, 730);
         containerEditor.add(sp);
 
     }
 
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,6 +73,10 @@ public class HomeView extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         executeProgramMenu = new javax.swing.JMenu();
         executeProgram = new javax.swing.JMenuItem();
+        menuConfig = new javax.swing.JMenu();
+        actionEditorConfig = new javax.swing.JMenuItem();
+        actionChangeTheme = new javax.swing.JMenuItem();
+        actionFontConfig = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1086, 750));
@@ -187,6 +195,7 @@ public class HomeView extends javax.swing.JFrame {
 
         executeProgramMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/play.png"))); // NOI18N
         executeProgramMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        executeProgramMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         executeProgramMenu.setPreferredSize(new java.awt.Dimension(75, 25));
 
         executeProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
@@ -194,6 +203,19 @@ public class HomeView extends javax.swing.JFrame {
         executeProgramMenu.add(executeProgram);
 
         jMenuBar1.add(executeProgramMenu);
+
+        menuConfig.setText("Configuración");
+
+        actionEditorConfig.setText("Editor");
+        menuConfig.add(actionEditorConfig);
+
+        actionChangeTheme.setText("Tema");
+        menuConfig.add(actionChangeTheme);
+
+        actionFontConfig.setText("Fuente");
+        menuConfig.add(actionFontConfig);
+
+        jMenuBar1.add(menuConfig);
 
         setJMenuBar(jMenuBar1);
 
@@ -213,8 +235,11 @@ public class HomeView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JMenuItem actionChangeTheme;
     public javax.swing.JMenuItem actionCopy;
     public javax.swing.JMenuItem actionCut;
+    public javax.swing.JMenuItem actionEditorConfig;
+    public javax.swing.JMenuItem actionFontConfig;
     public javax.swing.JMenuItem actionGoToLine;
     public javax.swing.JMenuItem actionPaste;
     public javax.swing.JMenuItem actionRedo;
@@ -234,6 +259,7 @@ public class HomeView extends javax.swing.JFrame {
     public javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JPanel mainContainer;
+    private javax.swing.JMenu menuConfig;
     public javax.swing.JMenuItem newDoc;
     public javax.swing.JMenuItem openDoc;
     public javax.swing.JMenuItem openProject;
