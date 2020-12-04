@@ -11,6 +11,7 @@ import Utils.CreateChildNodes;
 import Utils.FileManger;
 import Utils.GenCod;
 import Utils.Helper;
+import Utils.StatusBar;
 import Utils.TextAreaOutputStream;
 import View.HomeView;
 import exceptions.lexicas.ExcepcionLexica;
@@ -20,6 +21,7 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -36,6 +38,8 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractAction;
+import static javax.swing.Action.ACCELERATOR_KEY;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -45,18 +49,33 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
+import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import model.FileNode;
+import org.fife.rsta.ui.GoToDialog;
+import org.fife.rsta.ui.search.FindDialog;
+import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.rsta.ui.search.ReplaceDialog;
+import org.fife.rsta.ui.search.ReplaceToolBar;
+import org.fife.rsta.ui.search.SearchEvent;
+import org.fife.rsta.ui.search.SearchListener;
 import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.autocomplete.BasicCompletion;
 import org.fife.ui.autocomplete.CompletionProvider;
 import org.fife.ui.autocomplete.DefaultCompletionProvider;
 import org.fife.ui.autocomplete.ShorthandCompletion;
+import org.fife.rsta.ui.GoToDialog;
+import org.fife.rsta.ui.SizeGripIcon;
+
+import org.fife.ui.rtextarea.SearchContext;
+import org.fife.ui.rtextarea.SearchEngine;
+import org.fife.ui.rtextarea.SearchResult;
 import vm.CeIVMAPI;
 import vm.CeIVMAPIIOSubSys;
 import vm.CeIVMAPIMemory;
@@ -68,12 +87,21 @@ import vm.exceptions.CeIVMRuntimeException;
  *
  * @author Hugo Luna
  */
-public class HomeViewController {
+public class HomeViewController implements SearchListener {
 
     private HomeView homeView;
     private File openFile;
     private FileManger fileManager;
     private boolean validation = true;
+
+    /**
+     * Custom vars to editor
+     */
+    private FindDialog findDialog;
+    private ReplaceDialog replaceDialog;
+    private FindToolBar findToolBar;
+    private ReplaceToolBar replaceToolBar;
+    private StatusBar statusBar;
     /**
      * Custom vars to fileTree
      */
@@ -94,7 +122,10 @@ public class HomeViewController {
         this.homeView = homeView;
         homeView.setVisible(true);
         initVars();
+        initSearchDialogs();
         loadTreeDefault("Explorador");
+        statusBar = new StatusBar();
+        homeView.mainContainer.add(statusBar, BorderLayout.SOUTH);
         events();
     }
 
@@ -124,7 +155,11 @@ public class HomeViewController {
 
         homeView.saveDoc.addActionListener((ActionEvent ae) -> {
             fileManager = new FileManger();
-            saveDocument();
+            if (validation) {
+                saveDocument();
+            } else {
+                saveDocumentTree(openFile.getAbsoluteFile().toString());
+            }
         });
 
         homeView.saveDocAs.addActionListener((ActionEvent ae) -> {
@@ -139,6 +174,75 @@ public class HomeViewController {
         homeView.executeProgram.addActionListener((ActionEvent ae) -> {
             runProgram();
         });
+
+        /**
+         * Edit Actions
+         */
+        homeView.actionSearch.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (replaceDialog.isVisible()) {
+                    replaceDialog.setVisible(false);
+                }
+                findDialog.setVisible(true);
+
+            }
+        });
+
+        homeView.actionReplace.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (findDialog.isVisible()) {
+                    findDialog.setVisible(false);
+                }
+                replaceDialog.setVisible(true);
+            }
+        });
+
+        homeView.actionGoToLine.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                if (findDialog.isVisible()) {
+                    findDialog.setVisible(false);
+                }
+                if (replaceDialog.isVisible()) {
+                    replaceDialog.setVisible(false);
+                }
+                GoToDialog dialog = new GoToDialog(homeView);
+                dialog.setMaxLineNumberAllowed(homeView.textEditor.getLineCount());
+                dialog.setVisible(true);
+                int line = dialog.getLineNumber();
+                if (line > 0) {
+                    try {
+                        homeView.textEditor.setCaretPosition(homeView.textEditor.getLineStartOffset(line - 1));
+                    } catch (BadLocationException ble) { // Never happens
+                        UIManager.getLookAndFeel().provideErrorFeedback(homeView.textEditor);
+                        ble.printStackTrace();
+                    }
+                }
+            }
+        });
+
+    }
+
+    /**
+     * Creates our Find and Replace dialogs.
+     */
+    private void initSearchDialogs() {
+
+        findDialog = new FindDialog(homeView, this);
+        replaceDialog = new ReplaceDialog(homeView, this);
+
+        // This ties the properties of the two dialogs together (match case,
+        // regex, etc.).
+        SearchContext context = findDialog.getSearchContext();
+        replaceDialog.setSearchContext(context);
+
+        // Create tool bars and tie their search contexts together also.
+        findToolBar = new FindToolBar(this);
+        findToolBar.setSearchContext(context);
+        replaceToolBar = new ReplaceToolBar(this);
+        replaceToolBar.setSearchContext(context);
 
     }
 
@@ -420,6 +524,55 @@ public class HomeViewController {
             }
         }).start();
         dlg.setVisible(true);
+    }
+
+    @Override
+    public void searchEvent(SearchEvent e) {
+        SearchEvent.Type type = e.getType();
+        SearchContext context = e.getSearchContext();
+        SearchResult result;
+
+        switch (type) {
+            default: // Prevent FindBugs warning later
+            case MARK_ALL:
+                result = SearchEngine.markAll(homeView.textEditor, context);
+                break;
+            case FIND:
+                result = SearchEngine.find(homeView.textEditor, context);
+                if (!result.wasFound() || result.isWrapped()) {
+                    UIManager.getLookAndFeel().provideErrorFeedback(homeView.textEditor);
+                }
+                break;
+            case REPLACE:
+                result = SearchEngine.replace(homeView.textEditor, context);
+                if (!result.wasFound() || result.isWrapped()) {
+                    UIManager.getLookAndFeel().provideErrorFeedback(homeView.textEditor);
+                }
+                break;
+            case REPLACE_ALL:
+                result = SearchEngine.replaceAll(homeView.textEditor, context);
+                JOptionPane.showMessageDialog(null, result.getCount()
+                        + " occurrences replaced.");
+                break;
+        }
+
+        String text;
+        if (result.wasFound()) {
+            text = "Text found; occurrences marked: " + result.getMarkedCount();
+        } else if (type == SearchEvent.Type.MARK_ALL) {
+            if (result.getMarkedCount() > 0) {
+                text = "Occurrences marked: " + result.getMarkedCount();
+            } else {
+                text = "";
+            }
+        } else {
+            text = "Text not found";
+        }
+    }
+
+    @Override
+    public String getSelectedText() {
+        return homeView.textEditor.getSelectedText();
     }
 
 }
