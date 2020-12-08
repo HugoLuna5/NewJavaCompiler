@@ -12,7 +12,12 @@ import Utils.CreateChildNodes;
 import Utils.FileManger;
 import Utils.GenCod;
 import Utils.Helper;
+import Utils.RedoAction;
 import Utils.TextAreaOutputStream;
+import Utils.TreePopup;
+import Utils.UndoAction;
+import Utils.UndoListener;
+import Utils.Utils;
 import View.ConfigEditorView;
 import View.ConfigThemeView;
 import View.HomeView;
@@ -20,83 +25,56 @@ import exceptions.lexicas.ExcepcionLexica;
 import exceptions.semanticas.ExcepcionSemantica;
 import exceptions.sintacticas.ExcepcionSintactica;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
 import java.io.PrintStream;
+import java.util.NoSuchElementException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import static javax.swing.Action.ACCELERATOR_KEY;
-import javax.swing.ButtonGroup;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.JTree;
-import javax.swing.KeyStroke;
-import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.event.UndoableEditEvent;
-import javax.swing.event.UndoableEditListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultEditorKit;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 import javax.swing.undo.UndoManager;
-import static jdk.nashorn.internal.objects.NativeArray.shift;
 import model.FileNode;
-import org.fife.rsta.ui.GoToDialog;
 import org.fife.rsta.ui.search.FindDialog;
-import org.fife.rsta.ui.search.FindToolBar;
 import org.fife.rsta.ui.search.ReplaceDialog;
-import org.fife.rsta.ui.search.ReplaceToolBar;
 import org.fife.rsta.ui.search.SearchEvent;
 import org.fife.rsta.ui.search.SearchListener;
 import org.fife.ui.autocomplete.AutoCompletion;
-import org.fife.ui.autocomplete.BasicCompletion;
 import org.fife.ui.autocomplete.CompletionProvider;
-import org.fife.ui.autocomplete.DefaultCompletionProvider;
-import org.fife.ui.autocomplete.ShorthandCompletion;
 import org.fife.rsta.ui.GoToDialog;
-import org.fife.rsta.ui.SizeGripIcon;
-import org.fife.ui.rsyntaxtextarea.Theme;
 
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
 import vm.CeIVMAPI;
-import vm.CeIVMAPIIOSubSys;
-import vm.CeIVMAPIMemory;
-import vm.CeIVMAPISpecialRegs;
-import vm.exceptions.CeIVMMemoryException;
-import vm.exceptions.CeIVMRuntimeException;
 
 /**
  *
@@ -106,7 +84,9 @@ public class HomeViewController implements SearchListener {
 
     private HomeView homeView;
     private File openFile;
+    private TreePopup treePopup;
     private FileManger fileManager;
+    private Utils utils;
     private boolean validation = true;
     private String salida = null;
 
@@ -115,9 +95,9 @@ public class HomeViewController implements SearchListener {
      */
     private FindDialog findDialog;
     private ReplaceDialog replaceDialog;
-    private UndoManager undoManager = new UndoManager();
-    private UndoAction undoAction = new UndoAction();
-    private RedoAction redoAction = new RedoAction();
+    private UndoManager undoManager;
+    private UndoAction undoAction;
+    private RedoAction redoAction;
 
     /**
      * Custom vars to fileTree
@@ -141,7 +121,7 @@ public class HomeViewController implements SearchListener {
         initVars();
         initSearchDialogs();
         loadTreeDefault("Explorador");
-        homeView.textEditor.getDocument().addUndoableEditListener(new UndoListener());
+
         events();
     }
 
@@ -151,7 +131,26 @@ public class HomeViewController implements SearchListener {
         fileManager = new FileManger();
         configAutoComplete();
         new Config().setEditorConfig(homeView.textEditor);
+        configUndoAndRedo();
+        utils = new Utils();
+        centreWindow(homeView);
 
+    }
+    
+    public static void centreWindow(Window frame) {
+    Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+    int x = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
+    int y = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
+    frame.setLocation(x, y);
+}
+
+    private void configUndoAndRedo() {
+        undoManager = new UndoManager();
+        undoAction = new UndoAction(undoManager);
+        redoAction = new RedoAction(undoManager);
+        undoAction.setRedoAction(redoAction);
+        redoAction.setUndoAction(undoAction);
+        homeView.textEditor.getDocument().addUndoableEditListener(new UndoListener(undoManager, undoAction, redoAction));
     }
 
     private void events() {
@@ -196,67 +195,42 @@ public class HomeViewController implements SearchListener {
 
         homeView.actionRedo.addActionListener(redoAction);
 
-        homeView.actionCopy.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new DefaultEditorKit.CopyAction();
-            }
-        });
-        homeView.actionCut.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new DefaultEditorKit.CutAction();
-            }
-        });
+        homeView.actionCopy.addActionListener((ActionEvent ae) -> new DefaultEditorKit.CopyAction());
 
-        homeView.actionPaste.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                new DefaultEditorKit.PasteAction();
+        homeView.actionCut.addActionListener((ActionEvent ae) -> new DefaultEditorKit.CutAction());
+
+        homeView.actionPaste.addActionListener((ActionEvent ae) -> new DefaultEditorKit.PasteAction());
+
+        homeView.actionSearch.addActionListener((ActionEvent ae) -> {
+            if (replaceDialog.isVisible()) {
+                replaceDialog.setVisible(false);
             }
+            findDialog.setVisible(true);
         });
 
-        homeView.actionSearch.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (replaceDialog.isVisible()) {
-                    replaceDialog.setVisible(false);
-                }
-                findDialog.setVisible(true);
-
+        homeView.actionReplace.addActionListener((ActionEvent ae) -> {
+            if (findDialog.isVisible()) {
+                findDialog.setVisible(false);
             }
+            replaceDialog.setVisible(true);
         });
 
-        homeView.actionReplace.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (findDialog.isVisible()) {
-                    findDialog.setVisible(false);
-                }
-                replaceDialog.setVisible(true);
+        homeView.actionGoToLine.addActionListener((ActionEvent ae) -> {
+            if (findDialog.isVisible()) {
+                findDialog.setVisible(false);
             }
-        });
-
-        homeView.actionGoToLine.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                if (findDialog.isVisible()) {
-                    findDialog.setVisible(false);
-                }
-                if (replaceDialog.isVisible()) {
-                    replaceDialog.setVisible(false);
-                }
-                GoToDialog dialog = new GoToDialog(homeView);
-                dialog.setMaxLineNumberAllowed(homeView.textEditor.getLineCount());
-                dialog.setVisible(true);
-                int line = dialog.getLineNumber();
-                if (line > 0) {
-                    try {
-                        homeView.textEditor.setCaretPosition(homeView.textEditor.getLineStartOffset(line - 1));
-                    } catch (BadLocationException ble) { // Never happens
-                        UIManager.getLookAndFeel().provideErrorFeedback(homeView.textEditor);
-                        ble.printStackTrace();
-                    }
+            if (replaceDialog.isVisible()) {
+                replaceDialog.setVisible(false);
+            }
+            GoToDialog dialog = new GoToDialog(homeView);
+            dialog.setMaxLineNumberAllowed(homeView.textEditor.getLineCount());
+            dialog.setVisible(true);
+            int line = dialog.getLineNumber();
+            if (line > 0) {
+                try {
+                    homeView.textEditor.setCaretPosition(homeView.textEditor.getLineStartOffset(line - 1));
+                } catch (BadLocationException ble) { // Never happens
+                    UIManager.getLookAndFeel().provideErrorFeedback(homeView.textEditor);
                 }
             }
         });
@@ -264,20 +238,14 @@ public class HomeViewController implements SearchListener {
         /**
          * Config Actions
          */
-        homeView.actionEditorConfig.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                homeView.setVisible(false);
-                new ConfigEditorController(new ConfigEditorView());
-            }
+        homeView.actionEditorConfig.addActionListener((ActionEvent ae) -> {
+            homeView.setVisible(false);
+            new ConfigEditorController(new ConfigEditorView());
         });
 
-        homeView.actionChangeTheme.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                homeView.setVisible(false);
-                new ConfigThemeController(new ConfigThemeView());
-            }
+        homeView.actionChangeTheme.addActionListener((ActionEvent ae) -> {
+            homeView.setVisible(false);
+            new ConfigThemeController(new ConfigThemeView());
         });
 
         homeView.actionFontConfig.addActionListener(new ActionListener() {
@@ -413,7 +381,6 @@ public class HomeViewController implements SearchListener {
         frameDialog.setMaximumSize(new java.awt.Dimension(850, 352));
         frameDialog.setMinimumSize(new java.awt.Dimension(850, 352));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         Font f = new Font("SansSerif", Font.PLAIN, 11);
         consoleEditor.setFont(f);
         consoleEditor.setColumns(20);
@@ -488,14 +455,15 @@ public class HomeViewController implements SearchListener {
         openFile = fileManager.createNewDocument(homeView, homeView.textEditor);
         fileManager.readDocument(openFile, homeView, homeView.textEditor);
         homeView.setTitle("NewJava - " + openFile.getName());
-        loadTreeDefault(openFile.getName());
+        loadDataInTree(openFile.getParent());
+
     }
 
     private void saveDocument() {
         if (openFile != null) {
             openFile = fileManager.saveDocument(homeView, homeView.textEditor, openFile);
             homeView.setTitle("NewJava - " + openFile.getName());
-            customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
+            utils.customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
         }
@@ -505,7 +473,7 @@ public class HomeViewController implements SearchListener {
         if (openFile != null) {
             openFile = fileManager.saveDocumentTree(homeView, homeView.textEditor, path);
             homeView.setTitle("NewJava - " + openFile.getName());
-            customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
+            utils.customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
         }
@@ -515,7 +483,7 @@ public class HomeViewController implements SearchListener {
         if (openFile != null) {
             openFile = fileManager.saveDocumentAs(homeView, homeView.textEditor);
             homeView.setTitle("NewJava - " + openFile.getName());
-            customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
+            utils.customDialog("Guardando", "Tu archivo se ha guardado", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             JOptionPane.showMessageDialog(homeView, "Primero debes abrir un documento valido");
@@ -538,6 +506,11 @@ public class HomeViewController implements SearchListener {
     private void actionOpenProject() {
 
         String route = fileManager.openFolder();
+        loadDataInTree(route);
+
+    }
+
+    private void loadDataInTree(String route) {
         if (route != null) {
 
             File fileRoot = new File(route);
@@ -554,23 +527,85 @@ public class HomeViewController implements SearchListener {
                     = new CreateChildNodes(fileRoot, root);
             //new Thread(ccn).start();
 
-            homeView.filesTree.addTreeSelectionListener((TreeSelectionEvent tse) -> {
-                DefaultMutableTreeNode node = (DefaultMutableTreeNode) homeView.filesTree.getLastSelectedPathComponent();
-                if (node == null) //Nothing is selected.
-                {
-                    System.err.println("Nada seleccionado");
-                }
-                Object nodeInfo = node.getUserObject();
-                if (node.isLeaf()) {
-                    FileNode f1 = (FileNode) nodeInfo;
-                    openFile = f1.getFile();
-                    fileManager.readDocument(openFile, homeView, homeView.textEditor);
-                    validation = false;
-                    homeView.setTitle("NewJava - " + openFile.getName());
-                }
-            });
+            try {
+
+                /*
+                homeView.filesTree.addTreeSelectionListener((TreeSelectionEvent tse) -> {
+                    DefaultMutableTreeNode node = (DefaultMutableTreeNode) homeView.filesTree.getLastSelectedPathComponent();
+                    if (node == null) //Nothing is selected.
+                    {
+                        System.err.println("Nada seleccionado");
+                    }
+                    Object nodeInfo = node.getUserObject();
+                    if (node.isLeaf()) {
+                        FileNode f1 = (FileNode) nodeInfo;
+                        openFileTree(f1.getFile());
+                    }
+                });
+                 */
+                homeView.filesTree.addMouseListener(new MouseAdapter() {
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getClickCount() == 2) {
+                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) homeView.filesTree.getLastSelectedPathComponent();
+                            if (node == null) {
+                                return;
+                            }
+                            Object nodeInfo = node.getUserObject();
+                            // Cast nodeInfo to your object and do whatever you want
+                        }
+                    }
+                });
+
+                homeView.filesTree.addMouseListener(new MouseAdapter() {
+                    public void mouseReleased(MouseEvent e) {
+                        if (e.isPopupTrigger()) {
+                            treePopup = new TreePopup(homeView.filesTree);
+                            TreePath pathForLocation = homeView.filesTree.getPathForLocation(e.getX(), e.getY());
+                            homeView.filesTree.setSelectionPath(pathForLocation);
+
+                            DefaultMutableTreeNode node = (DefaultMutableTreeNode) homeView.filesTree.getLastSelectedPathComponent();
+                            if (node == null) //Nothing is selected.
+                            {
+                                System.err.println("Nada seleccionado");
+                            }
+                            Object nodeInfo = node.getUserObject();
+                            if (node.isLeaf()) {
+                                FileNode f1 = (FileNode) nodeInfo;
+
+                                treePopup.delete.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent ae) {
+
+                                    }
+                                });
+                                treePopup.open.addActionListener(new ActionListener() {
+                                    public void actionPerformed(ActionEvent ae) {
+                                        openFileTree(f1.getFile());
+
+                                    }
+                                });
+
+                                treePopup.show(e.getComponent(), e.getX(), e.getY());
+
+                            }
+
+                        }
+                    }
+                });
+
+            } catch (NullPointerException nullPoin) {
+                System.err.println("Error extension file: " + nullPoin.getMessage());
+            } catch (NoSuchElementException noSuch) {
+                System.err.println("Error extension file: " + noSuch.getMessage());
+            }
 
         }
+    }
+
+    private void openFileTree(File file) {
+        openFile = file;
+        fileManager.readDocument(openFile, homeView, homeView.textEditor);
+        validation = false;
+        homeView.setTitle("NewJava - " + openFile.getName());
     }
 
     private void loadTreeDefault(String filename) {
@@ -586,24 +621,6 @@ public class HomeViewController implements SearchListener {
         CompletionProvider provider = new AutoCompleteProvider().createCompletionProvider();
         AutoCompletion ac = new AutoCompletion(provider);
         ac.install(homeView.textEditor);
-    }
-
-    private void customDialog(String title, String message, int type_message) {
-        JOptionPane msg = new JOptionPane(message, type_message);
-        final JDialog dlg = msg.createDialog(title);
-        dlg.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                dlg.setVisible(false);
-            }
-        }).start();
-        dlg.setVisible(true);
     }
 
     @Override
@@ -632,108 +649,27 @@ public class HomeViewController implements SearchListener {
             case REPLACE_ALL:
                 result = SearchEngine.replaceAll(homeView.textEditor, context);
                 JOptionPane.showMessageDialog(null, result.getCount()
-                        + " occurrences replaced.");
+                        + " ocurrencias reemplazadas.");
                 break;
         }
 
         String text;
         if (result.wasFound()) {
-            text = "Text found; occurrences marked: " + result.getMarkedCount();
+            text = "Texto encontrado; ocurrencias marcadas: " + result.getMarkedCount();
         } else if (type == SearchEvent.Type.MARK_ALL) {
             if (result.getMarkedCount() > 0) {
-                text = "Occurrences marked: " + result.getMarkedCount();
+                text = "Las ocurrencias marcadas: " + result.getMarkedCount();
             } else {
                 text = "";
             }
         } else {
-            text = "Text not found";
+            text = "Texto no encontrado";
         }
     }
 
     @Override
     public String getSelectedText() {
         return homeView.textEditor.getSelectedText();
-    }
-
-    /**
-     * Changes the Look and Feel.
-     */
-    private class LookAndFeelAction extends AbstractAction {
-
-        private LookAndFeelInfo info;
-
-        LookAndFeelAction(LookAndFeelInfo info) {
-            putValue(NAME, info.getName());
-            this.info = info;
-        }
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            try {
-                UIManager.setLookAndFeel(info.getClassName());
-                SwingUtilities.updateComponentTreeUI(homeView);
-                if (findDialog != null) {
-                    findDialog.updateUI();
-                    replaceDialog.updateUI();
-                }
-                homeView.pack();
-            } catch (RuntimeException re) {
-                throw re; // FindBugs
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
-
-    class UndoListener implements UndoableEditListener {
-
-        public void undoableEditHappened(UndoableEditEvent e) {
-            undoManager.addEdit(e.getEdit());
-            undoAction.update();
-            redoAction.update();
-        }
-    }
-
-    class UndoAction extends AbstractAction {
-
-        public UndoAction() {
-            this.putValue(Action.NAME, undoManager.getUndoPresentationName());
-            this.setEnabled(false);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            if (this.isEnabled()) {
-                undoManager.undo();
-                undoAction.update();
-                redoAction.update();
-            }
-        }
-
-        public void update() {
-            this.putValue(Action.NAME, undoManager.getUndoPresentationName());
-            this.setEnabled(undoManager.canUndo());
-        }
-    }
-
-    class RedoAction extends AbstractAction {
-
-        public RedoAction() {
-            this.putValue(Action.NAME, undoManager.getRedoPresentationName());
-            this.setEnabled(false);
-        }
-
-        public void actionPerformed(ActionEvent e) {
-            if (this.isEnabled()) {
-                undoManager.redo();
-                undoAction.update();
-                redoAction.update();
-            }
-        }
-
-        public void update() {
-            this.putValue(Action.NAME, undoManager.getRedoPresentationName());
-            this.setEnabled(undoManager.canRedo());
-        }
     }
 
 }

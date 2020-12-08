@@ -35,9 +35,6 @@
   <SubComponents>
     <Container class="javax.swing.JPanel" name="jPanel1">
       <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-        </Property>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[750, 300]"/>
         </Property>
@@ -60,14 +57,9 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="actionCancel" min="-2" pref="205" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="267" max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="497" max="32767" attributes="0"/>
-                      <Component id="actionDone" min="-2" pref="205" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="actionDone" min="-2" pref="205" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -79,15 +71,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="listOptions" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace pref="119" max="32767" attributes="0"/>
-                  <Component id="actionCancel" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
-              </Group>
-              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="240" max="32767" attributes="0"/>
-                      <Component id="actionDone" min="-2" pref="50" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="actionCancel" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
+                      <Component id="actionDone" alignment="3" min="-2" pref="50" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -104,13 +92,17 @@
         <Component class="javax.swing.JComboBox" name="listOptions">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="6">
+              <StringArray count="10">
                 <StringItem index="0" value="Default"/>
                 <StringItem index="1" value="Metal"/>
                 <StringItem index="2" value="Nimbus"/>
                 <StringItem index="3" value="CDE/Motif"/>
                 <StringItem index="4" value="Windows"/>
                 <StringItem index="5" value="Windows Classic"/>
+                <StringItem index="6" value="Flat Light"/>
+                <StringItem index="7" value="Flat IntelliJ"/>
+                <StringItem index="8" value="Flat Dark"/>
+                <StringItem index="9" value="Flat Dracula"/>
               </StringArray>
             </Property>
           </Properties>

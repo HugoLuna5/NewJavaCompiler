@@ -31,7 +31,7 @@ public class HomeView extends javax.swing.JFrame {
         textEditor.setMarkOccurrences(true);
         
         sp = new RTextScrollPane(textEditor);
-        sp.setSize(850, 730);
+        sp.setSize(850, 780);
         containerEditor.add(sp);
 
     }
@@ -86,8 +86,8 @@ public class HomeView extends javax.swing.JFrame {
         mainContainer.setMinimumSize(new java.awt.Dimension(1086, 750));
         mainContainer.setPreferredSize(new java.awt.Dimension(1086, 750));
 
-        containerEditor.setMaximumSize(new java.awt.Dimension(850, 724));
-        containerEditor.setMinimumSize(new java.awt.Dimension(850, 724));
+        containerEditor.setMaximumSize(new java.awt.Dimension(850, 750));
+        containerEditor.setMinimumSize(new java.awt.Dimension(850, 750));
 
         javax.swing.GroupLayout containerEditorLayout = new javax.swing.GroupLayout(containerEditor);
         containerEditor.setLayout(containerEditorLayout);
@@ -116,7 +116,7 @@ public class HomeView extends javax.swing.JFrame {
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");

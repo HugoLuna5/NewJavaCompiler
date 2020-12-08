@@ -6,6 +6,7 @@
 package Utils;
 
 import java.io.File;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.swing.tree.DefaultMutableTreeNode;
 import model.FileNode;
@@ -37,23 +38,27 @@ public class CreateChildNodes {
         for (File file : files) {
 
             try {
-                Optional<String> extOp = getExtensionByStringHandling(file.getName());
-                String ext = extOp.get();
 
-                if (ext.equalsIgnoreCase("hdg")) {
+                
+                if (file.isDirectory()) {
                     DefaultMutableTreeNode childNode
                             = new DefaultMutableTreeNode(new FileNode(file));
                     node.add(childNode);
+                    createChildren(file, childNode);
                 } else {
-                    if (file.isDirectory()) {
+                    Optional<String> extOp = getExtensionByStringHandling(file.getName());
+                    String ext = extOp.get();
+                    if (ext.equalsIgnoreCase("hdg")) {
                         DefaultMutableTreeNode childNode
                                 = new DefaultMutableTreeNode(new FileNode(file));
                         node.add(childNode);
-                        createChildren(file, childNode);
                     }
                 }
+
             } catch (NullPointerException nullPoin) {
                 System.err.println("Error extension file: " + nullPoin.getMessage());
+            } catch (NoSuchElementException noSuch) {
+                System.err.println("Error extension file: " + noSuch.getMessage());
             }
 
         }

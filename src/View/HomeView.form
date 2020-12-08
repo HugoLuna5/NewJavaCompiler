@@ -323,7 +323,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jScrollPane1" pref="780" max="32767" attributes="0"/>
-              <Component id="containerEditor" alignment="0" max="32767" attributes="0"/>
+              <Component id="containerEditor" alignment="0" pref="780" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -331,10 +331,10 @@
         <Container class="javax.swing.JPanel" name="containerEditor">
           <Properties>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[850, 724]"/>
+              <Dimension value="[850, 750]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[850, 724]"/>
+              <Dimension value="[850, 750]"/>
             </Property>
           </Properties>
 

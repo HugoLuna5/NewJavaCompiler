@@ -1,15 +1,15 @@
 .data 
-VT_A_91:                    DW met_mostrarMisVars_485 ; Metodo mostrarMisVars cuyo offset es 0 
+VT_A_3:                    DW met_mostrarMisVars_14 ; Metodo mostrarMisVars cuyo offset es 0 
 .data 
-VT_Object_88: NOP             ; VT de la clase Object 
+VT_Object_0: NOP             ; VT de la clase Object 
 .data 
-VT_System_89: NOP             ; VT de la clase System 
+VT_System_1: NOP             ; VT de la clase System 
 .data 
-VT_Principal_90: NOP             ; VT de la clase Principal 
+VT_Principal_2: NOP             ; VT de la clase Principal 
 .code 
                    PUSH simple_heap_init 
                    CALL            
-                   PUSH met_main_483 
+                   PUSH met_main_12 
                    CALL            
                    HALT            
 simple_heap_init: RET 0           ; Retorna inmediatamente 
@@ -32,63 +32,63 @@ mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Me
 error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
                    SPRINT          
                    HALT            
-met_A_486: LOADFP          ; Guardar enlace dinamico 
+met_A_15: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_mostrarMisVars_485: LOADFP          ; Guardar enlace dinamico 
+met_mostrarMisVars_14: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          ; Cargo referencia al 'this' 
                    LOADREF 3       ; Cargo variable de instancia 3 
-                   PUSH met_printIln_481 ; Preparo para llamar al metodo System.printIln 
+                   PUSH met_printIln_10 ; Preparo para llamar al metodo System.printIln 
                    CALL            
                    LOAD 3          ; Cargo referencia al 'this' 
                    LOADREF 4       ; Cargo variable de instancia 4 
-                   PUSH met_printIln_481 ; Preparo para llamar al metodo System.printIln 
+                   PUSH met_printIln_10 ; Preparo para llamar al metodo System.printIln 
                    CALL            
                    LOAD 3          ; Cargo referencia al 'this' 
                    LOADREF 5       ; Cargo variable de instancia 5 
-                   PUSH met_printBln_479 ; Preparo para llamar al metodo System.printBln 
+                   PUSH met_printBln_8 ; Preparo para llamar al metodo System.printBln 
                    CALL            
                    LOAD 3          ; Cargo referencia al 'this' 
                    LOADREF 2       ; Cargo variable de instancia 2 
-                   PUSH met_printSln_482 ; Preparo para llamar al metodo System.printSln 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_Object_471: LOADFP          ; Guardar enlace dinamico 
+met_Object_0: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_System_472: LOADFP          ; Guardar enlace dinamico 
+met_System_1: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printC_475: LOADFP          ; Guardar enlace dinamico 
+met_printC_4: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    CPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printS_477: LOADFP          ; Guardar enlace dinamico 
+met_printS_6: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    SPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_println_478: LOADFP          ; Guardar enlace dinamico 
+met_println_7: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printCln_480: LOADFP          ; Guardar enlace dinamico 
+met_printCln_9: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -96,7 +96,7 @@ met_printCln_480: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printSln_482: LOADFP          ; Guardar enlace dinamico 
+met_printSln_11: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -104,21 +104,21 @@ met_printSln_482: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_read_473: LOADFP          ; Guardar enlace dinamico 
+met_read_2: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    READ            
                    STORE 3         
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printB_474: LOADFP          ; Guardar enlace dinamico 
+met_printB_3: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    BPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printIln_481: LOADFP          ; Guardar enlace dinamico 
+met_printIln_10: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -126,14 +126,14 @@ met_printIln_481: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printI_476: LOADFP          ; Guardar enlace dinamico 
+met_printI_5: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    IPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printBln_479: LOADFP          ; Guardar enlace dinamico 
+met_printBln_8: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -141,12 +141,12 @@ met_printBln_479: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_Principal_484: LOADFP          ; Guardar enlace dinamico 
+met_Principal_13: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_main_483: LOADFP          ; Guardar enlace dinamico 
+met_main_12: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    RMEM 2          ; Se declaran 2 variables locales. Reservo lugar. 
@@ -155,13 +155,13 @@ met_main_483: LOADFP          ; Guardar enlace dinamico
                    PUSH simple_malloc ; Preparo llamada a malloc 
                    CALL            ; Invoco al malloc 
                    DUP             ; Duplico la referencia al CIR 
-                   PUSH VT_A_91    ; Guardo la etiqueta de la VT en el CIR 
+                   PUSH VT_A_3     ; Guardo la etiqueta de la VT en el CIR 
                    STOREREF 0      
                    DUP             
-                   PUSH 91         ; Guardo el ID de la clase en el CIR 
+                   PUSH 3          ; Guardo el ID de la clase en el CIR 
                    STOREREF 1      
                    DUP             
-                   PUSH met_A_486  ; Llamo al constructor (estoy en un new) 
+                   PUSH met_A_15   ; Llamo al constructor (estoy en un new) 
                    CALL            
                    STORE 0         ; Guardo parametro/var local a 
                    PUSH 13         ; Apilo un 13 
@@ -173,9 +173,9 @@ met_main_483: LOADFP          ; Guardar enlace dinamico
                    SWAP            
                    STOREREF 5      
 .data 
-str_487: DW "Hola",0     ; Guardo un string 
+str_16: DW "Hola",0     ; Guardo un string 
 .code 
-                   PUSH str_487    ; Apilo un string 
+                   PUSH str_16     ; Apilo un string 
                    LOAD 0          ; Cargo parametro/var local a 
                    SWAP            
                    STOREREF 2      

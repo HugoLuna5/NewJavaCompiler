@@ -5,6 +5,10 @@
  */
 package Utils;
 
+import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 import java.io.IOException;
 import java.util.prefs.Preferences;
 import javax.swing.SwingUtilities;
@@ -34,11 +38,20 @@ public class Config {
         try {
             if (position == 0) {
                 UIManager.setLookAndFeel(new MaterialLookAndFeel());
+            } else if (position == 6) {
+                UIManager.setLookAndFeel(new FlatLightLaf());
+            } else if (position == 7) {
+                UIManager.setLookAndFeel(new FlatIntelliJLaf());
+            } else if (position == 8) {
+                UIManager.setLookAndFeel(new FlatDarkLaf());
+            } else if (position == 9) {
+                UIManager.setLookAndFeel(new FlatDarculaLaf());
             } else {
 
                 UIManager.setLookAndFeel(infos[position - 1].getClassName());
 
             }
+            //
 
         } catch (RuntimeException re) {
             throw re; // FindBugs

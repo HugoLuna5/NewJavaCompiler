@@ -1,13 +1,13 @@
 .data 
-VT_A_22: NOP             ; VT de la clase A 
+VT_A_2: NOP             ; VT de la clase A 
 .data 
-VT_Object_20: NOP             ; VT de la clase Object 
+VT_Object_0: NOP             ; VT de la clase Object 
 .data 
-VT_System_21: NOP             ; VT de la clase System 
+VT_System_1: NOP             ; VT de la clase System 
 .code 
                    PUSH simple_heap_init 
                    CALL            
-                   PUSH met_main_113 
+                   PUSH met_main_12 
                    CALL            
                    HALT            
 simple_heap_init: RET 0           ; Retorna inmediatamente 
@@ -30,12 +30,12 @@ mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Me
 error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
                    SPRINT          
                    HALT            
-met_A_114: LOADFP          ; Guardar enlace dinamico 
+met_A_13: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_main_113: LOADFP          ; Guardar enlace dinamico 
+met_main_12: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    RMEM 3          ; Se declaran 3 variables locales. Reservo lugar. 
@@ -61,177 +61,177 @@ met_main_113: LOADFP          ; Guardar enlace dinamico
                    PUSH 0          ; Apilo FALSE 
                    STORE -4        ; Guardo parametro/var local e 
 .data 
-str_115: DW "Hola",0     ; Guardo un string 
+str_14: DW "Hola",0     ; Guardo un string 
 .code 
-                   PUSH str_115    ; Apilo un string 
+                   PUSH str_14     ; Apilo un string 
                    STORE -5        ; Guardo parametro/var local str 
-                                   ; Comienzo del IF_116 
+                                   ; Comienzo del IF_15 
                    LOAD -3         ; Cargo parametro/var local d 
                    LOAD -4         ; Cargo parametro/var local e 
                    AND             
-                   BF IF_L1_116    
+                   BF IF_L1_15     
 .data 
-str_117: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
+str_16: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
 .code 
-                   PUSH str_117    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_16     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-                   JUMP IF_L2_116  
-IF_L1_116: NOP             ;  
+                   JUMP IF_L2_15   
+IF_L1_15: NOP             ;  
 .data 
-str_118: DW "[OK]",0     ; Guardo un string 
+str_17: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_118    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_17     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_116: NOP             ;  
-                                   ; Fin del IF_116 
-                                   ; Comienzo del IF_119 
+IF_L2_15: NOP             ;  
+                                   ; Fin del IF_15 
+                                   ; Comienzo del IF_18 
                    LOAD -1         ; Cargo parametro/var local b 
                    PUSH 2          ; Apilo un 2 
                    MOD             
                    PUSH 0          ; Apilo un 0 
                    EQ              
-                   BF IF_L1_119    
+                   BF IF_L1_18     
 .data 
-str_120: DW "[OK]",0     ; Guardo un string 
+str_19: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_120    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_19     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-                   JUMP IF_L2_119  
-IF_L1_119: NOP             ;  
+                   JUMP IF_L2_18   
+IF_L1_18: NOP             ;  
 .data 
-str_121: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
+str_20: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
 .code 
-                   PUSH str_121    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_20     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_119: NOP             ;  
-                                   ; Fin del IF_119 
-                                   ; Comienzo del IF_122 
+IF_L2_18: NOP             ;  
+                                   ; Fin del IF_18 
+                                   ; Comienzo del IF_21 
                    LOAD -2         ; Cargo parametro/var local c 
                    LOAD -1         ; Cargo parametro/var local b 
                    NE              
-                   BF IF_L_122     
+                   BF IF_L_21      
 .data 
-str_123: DW "[OK]",0     ; Guardo un string 
+str_22: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_123    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_22     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L_122: NOP             ;  
-                                   ; Fin del IF_122 
-                                   ; Comienzo del IF_124 
+IF_L_21: NOP             ;  
+                                   ; Fin del IF_21 
+                                   ; Comienzo del IF_23 
                    LOAD -2         ; Cargo parametro/var local c 
                    LOAD -1         ; Cargo parametro/var local b 
                    NEG             
                    EQ              
-                   BF IF_L_124     
+                   BF IF_L_23      
 .data 
-str_125: DW "[OK]",0     ; Guardo un string 
+str_24: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_125    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_24     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L_124: NOP             ;  
-                                   ; Fin del IF_124 
-                                   ; Comienzo del IF_126 
+IF_L_23: NOP             ;  
+                                   ; Fin del IF_23 
+                                   ; Comienzo del IF_25 
                    LOAD -3         ; Cargo parametro/var local d 
                    NOT             
                    LOAD -4         ; Cargo parametro/var local e 
                    OR              
-                   BF IF_L1_126    
+                   BF IF_L1_25     
 .data 
-str_127: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
+str_26: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
 .code 
-                   PUSH str_127    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_26     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-                   JUMP IF_L2_126  
-IF_L1_126: NOP             ;  
+                   JUMP IF_L2_25   
+IF_L1_25: NOP             ;  
 .data 
-str_128: DW "[OK]",0     ; Guardo un string 
+str_27: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_128    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_27     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_126: NOP             ;  
-                                   ; Fin del IF_126 
-                                   ; Comienzo del IF_129 
+IF_L2_25: NOP             ;  
+                                   ; Fin del IF_25 
+                                   ; Comienzo del IF_28 
                    LOAD -3         ; Cargo parametro/var local d 
                    LOAD -4         ; Cargo parametro/var local e 
                    NOT             
                    AND             
-                   BF IF_L1_129    
+                   BF IF_L1_28     
 .data 
-str_130: DW "[OK]",0     ; Guardo un string 
+str_29: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_130    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_29     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    PUSH 123        ; Apilo un 123 
                    STORE 0         ; Guardo parametro/var local a 
-                   JUMP IF_L2_129  
-IF_L1_129: NOP             ;  
+                   JUMP IF_L2_28   
+IF_L1_28: NOP             ;  
 .data 
-str_131: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
+str_30: DW "No deberia entrar por aca [Hay un error]",0 ; Guardo un string 
 .code 
-                   PUSH str_131    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_30     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L2_129: NOP             ;  
-                                   ; Fin del IF_129 
-                                   ; Comienzo del IF_132 
+IF_L2_28: NOP             ;  
+                                   ; Fin del IF_28 
+                                   ; Comienzo del IF_31 
                    LOAD 0          ; Cargo parametro/var local a 
                    PUSH 123        ; Apilo un 123 
                    EQ              
-                   BF IF_L_132     
+                   BF IF_L_31      
 .data 
-str_133: DW "[OK]",0     ; Guardo un string 
+str_32: DW "[OK]",0     ; Guardo un string 
 .code 
-                   PUSH str_133    ; Apilo un string 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH str_32     ; Apilo un string 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
-IF_L_132: NOP             ;  
-                                   ; Fin del IF_132 
+IF_L_31: NOP             ;  
+                                   ; Fin del IF_31 
                    LOAD -5         ; Cargo parametro/var local str 
-                   PUSH met_printSln_112 ; Preparo para llamar al metodo System.printSln 
+                   PUSH met_printSln_11 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    FMEM 6          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_Object_101: LOADFP          ; Guardar enlace dinamico 
+met_Object_0: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_System_102: LOADFP          ; Guardar enlace dinamico 
+met_System_1: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printC_105: LOADFP          ; Guardar enlace dinamico 
+met_printC_4: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    CPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printS_107: LOADFP          ; Guardar enlace dinamico 
+met_printS_6: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    SPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_println_108: LOADFP          ; Guardar enlace dinamico 
+met_println_7: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printCln_110: LOADFP          ; Guardar enlace dinamico 
+met_printCln_9: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -239,7 +239,7 @@ met_printCln_110: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printSln_112: LOADFP          ; Guardar enlace dinamico 
+met_printSln_11: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -247,21 +247,21 @@ met_printSln_112: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_read_103: LOADFP          ; Guardar enlace dinamico 
+met_read_2: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    READ            
                    STORE 3         
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_printB_104: LOADFP          ; Guardar enlace dinamico 
+met_printB_3: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    BPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printIln_111: LOADFP          ; Guardar enlace dinamico 
+met_printIln_10: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
@@ -269,14 +269,14 @@ met_printIln_111: LOADFP          ; Guardar enlace dinamico
                    PRNLN           
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printI_106: LOADFP          ; Guardar enlace dinamico 
+met_printI_5: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
                    IPRINT          
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_printBln_109: LOADFP          ; Guardar enlace dinamico 
+met_printBln_8: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    LOAD 3          
