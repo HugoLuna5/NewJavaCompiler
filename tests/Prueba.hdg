@@ -1,0 +1,27 @@
+class Prueba { 
+
+     static void main() { 
+		int age;
+		(System.printSln("Hola Mundo"));
+		(System.printSln("¿Cuantos años tienes?"));
+		age = (SystemIO.readNumero());
+		(System.printI(age));
+		
+         
+     }
+}
+
+class SystemIO extends System {
+
+	
+	static int readNumero() {
+	
+		int rta;
+		
+		 
+		rta = (System.read());
+		
+		return rta;
+	}
+
+}

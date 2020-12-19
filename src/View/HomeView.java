@@ -76,7 +76,6 @@ public class HomeView extends javax.swing.JFrame {
         menuConfig = new javax.swing.JMenu();
         actionEditorConfig = new javax.swing.JMenuItem();
         actionChangeTheme = new javax.swing.JMenuItem();
-        actionFontConfig = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1086, 750));
@@ -116,7 +115,7 @@ public class HomeView extends javax.swing.JFrame {
         mainContainerLayout.setVerticalGroup(
             mainContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
-            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
+            .addComponent(containerEditor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Archivo");
@@ -212,9 +211,6 @@ public class HomeView extends javax.swing.JFrame {
         actionChangeTheme.setText("Tema");
         menuConfig.add(actionChangeTheme);
 
-        actionFontConfig.setText("Fuente");
-        menuConfig.add(actionFontConfig);
-
         jMenuBar1.add(menuConfig);
 
         setJMenuBar(jMenuBar1);
@@ -239,7 +235,6 @@ public class HomeView extends javax.swing.JFrame {
     public javax.swing.JMenuItem actionCopy;
     public javax.swing.JMenuItem actionCut;
     public javax.swing.JMenuItem actionEditorConfig;
-    public javax.swing.JMenuItem actionFontConfig;
     public javax.swing.JMenuItem actionGoToLine;
     public javax.swing.JMenuItem actionPaste;
     public javax.swing.JMenuItem actionRedo;

@@ -2,7 +2,7 @@ class Fibonacci {
 
 	static void main() {
 		int serie, num1, num2, suma, i;
-		serie = 10;
+		serie = 10.0;
 		num1 = 0; 
 		num2 = 1;
 		suma = 1;

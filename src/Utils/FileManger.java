@@ -56,7 +56,6 @@ public class FileManger {
      */
     public File openDocument() {
         File file = null;
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("HDG", "hdg");
         selectorDeArchivos = new JFileChooser("Abrir documento fuente");
         selectorDeArchivos.setFileFilter(new FileNameExtensionFilter("HDG", "hdg"));
         selectorDeArchivos.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -71,16 +70,16 @@ public class FileManger {
 
     public File createNewDocument(HomeView homeView, JTextArea textPane) {
         File f = null;
-
         selectorDeArchivos = new JFileChooser("Crear documento fuente");
+        selectorDeArchivos.setFileFilter(new FileNameExtensionFilter("HDG", "hdg"));
+
         int estado = selectorDeArchivos.showSaveDialog(selectorDeArchivos);
         if (estado == JFileChooser.APPROVE_OPTION) {
             f = selectorDeArchivos.getSelectedFile();
 
             try {
-              
-                String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
 
+                String name = f.getName().substring(0, f.getName().lastIndexOf('.'));
 
                 String content = "class " + name + " { \n\n"
                         + "     static void main() { \n\n"
@@ -100,8 +99,6 @@ public class FileManger {
 
         return f;
     }
-
-  
 
     /**
      * Save document with the content on the text editor with another name
@@ -192,13 +189,13 @@ public class FileManger {
 
         if (file != null) {
             try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            txt.read(br, null);
-            br.close();
+                BufferedReader br = new BufferedReader(new FileReader(file));
+                txt.read(br, null);
+                br.close();
 
-        } catch (IOException ex) {    //en caso de que ocurra una excepción
-            JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
-        }
+            } catch (IOException ex) {    //en caso de que ocurra una excepción
+                JOptionPane.showMessageDialog(homeView, ex.getMessage(), ex.toString(), JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }

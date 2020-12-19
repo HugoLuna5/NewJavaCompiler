@@ -26,7 +26,7 @@ public class CeIISAInstructionLE extends CeIISAInstruction {
       } else {
          mem.write(regs.getSp() + 1, 0);
       }
-
+      
       regs.setSp(regs.getSp() + 1);
       regs.setPc(regs.getPc() + this.getInstructionSize());
    }

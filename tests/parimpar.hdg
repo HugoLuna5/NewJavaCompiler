@@ -2,16 +2,38 @@ class ParImpar {
 
 	static void main() {
 		
+		//int numero, op;
 		int numero;
+		numero = (SystemIO.readNumero());
 		
-		numero = 2;
 
-		if(numero % 2 == 0) {
+(System.printI(numero));
+
+		//op = numero % 2;
+/*
+ * 
+		if(op == 0) {
 			(System.printSln("Es par"));
 		}else{
 			(System.printSln("Es impar"));
 		}
+ */
 		
 	}
 	
+}
+
+class SystemIO extends System {
+
+	
+	static int readNumero() {
+	
+		int rta;
+		
+		 
+		rta = (System.readString());
+		
+		return rta;
+	}
+
 }

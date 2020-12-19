@@ -23,15 +23,26 @@ public class TreePopup extends JPopupMenu {
 
     public JMenuItem delete;
     public JMenuItem open;
+    public JMenuItem run;
+    public JMenuItem rename;
+    public JMenuItem properties;
 
     public TreePopup(JTree tree) {
-        delete = new JMenuItem("Eliminar");
-        open = new JMenuItem("Abrir");
 
+        open = new JMenuItem("Abrir");
+        run = new JMenuItem("Ejecutar");
+        delete = new JMenuItem("Eliminar");
+        rename = new JMenuItem("Renombrar");
+        properties = new JMenuItem("Propiedades");
+        add(open);
+        add(new JSeparator());
+        add(run);
+        add(new JSeparator());
         add(delete);
         add(new JSeparator());
-        add(open);
+        add(rename);
+        add(new JSeparator());
+        add(properties);
     }
-
 
 }

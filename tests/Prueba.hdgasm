@@ -1,11 +1,11 @@
 .data 
-VT_A_18: NOP             ; VT de la clase A 
+VT_Prueba_19: NOP             ; VT de la clase Prueba 
 .data 
-VT_SystemIO_19: NOP             ; VT de la clase SystemIO 
+VT_SystemIO_20: NOP             ; VT de la clase SystemIO 
 .data 
-VT_Object_16: NOP             ; VT de la clase Object 
+VT_Object_17: NOP             ; VT de la clase Object 
 .data 
-VT_System_17: NOP             ; VT de la clase System 
+VT_System_18: NOP             ; VT de la clase System 
 .code 
                    PUSH simple_heap_init 
                    CALL            
@@ -32,59 +32,9 @@ mensaje_error_cast: DW "[Excepcion] Se produjo error al intentar castear",0 ; Me
 error_cast: PUSH mensaje_error_cast ; Apilo msj de error 
                    SPRINT          
                    HALT            
-met_A_99: LOADFP          ; Guardar enlace dinamico 
+met_Prueba_97: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
-                   STOREFP         ; Reestablece el contexto 
-                   RET 1           ; Retorna de la llamada, liberando parametros 
-met_esCapicua_97: LOADFP          ; Guardar enlace dinamico 
-                   LOADSP          ; Inicializar el FP 
-                   STOREFP         ;  
-                   RMEM 1          ; Reservo lugar para el valor de retorno 
-                   LOAD 3          ; Cargo parametro/var local n 
-                   PUSH met_invertir_98 
-                   CALL            
-                   LOAD 3          ; Cargo parametro/var local n 
-                   EQ              
-                   STORE 4         
-                   FMEM 0          ; Libero 0 variables locales 
-                   STOREFP         
-                   RET 1           
-                   STOREFP         ; Reestablece el contexto 
-                   RET 1           ; Retorna de la llamada, liberando parametros 
-met_invertir_98: LOADFP          ; Guardar enlace dinamico 
-                   LOADSP          ; Inicializar el FP 
-                   STOREFP         ;  
-                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
-                   PUSH 0          ; Apilo un 0 
-                   STORE 0         ; Guardo parametro/var local rta 
-                                   ; Comienzo del WHILE_102 
-WHILE_L1_102: NOP             ;  
-                   LOAD 3          ; Cargo parametro/var local n 
-                   PUSH 0          ; Apilo un 0 
-                   NE              
-                   BF WHILE_L2_102 
-                   LOAD 0          ; Cargo parametro/var local rta 
-                   PUSH 10         ; Apilo un 10 
-                   MUL             
-                   LOAD 3          ; Cargo parametro/var local n 
-                   PUSH 10         ; Apilo un 10 
-                   MOD             
-                   ADD             
-                   STORE 0         ; Guardo parametro/var local rta 
-                   LOAD 3          ; Cargo parametro/var local n 
-                   PUSH 10         ; Apilo un 10 
-                   DIV             
-                   STORE 3         ; Guardo parametro/var local n 
-                   JUMP WHILE_L1_102 
-WHILE_L2_102: NOP             ;  
-                                   ; Fin del WHILE_102 
-                   LOAD 0          ; Cargo parametro/var local rta 
-                   STORE 4         
-                   FMEM 1          ; Libero 1 variables locales 
-                   STOREFP         
-                   RET 1           
-                   FMEM 1          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
 met_main_96: LOADFP          ; Guardar enlace dinamico 
@@ -92,55 +42,46 @@ met_main_96: LOADFP          ; Guardar enlace dinamico
                    STOREFP         ;  
                    RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
 .data 
-str_103: DW "Ingrese un numero: ",0 ; Guardo un string 
+str_100: DW "Hola Mundo",0 ; Guardo un string 
 .code 
-                   PUSH str_103    ; Apilo un string 
-                   PUSH met_printS_90 ; Preparo para llamar al metodo System.printS 
+                   PUSH str_100    ; Apilo un string 
+                   PUSH met_printSln_95 ; Preparo para llamar al metodo System.printSln 
+                   CALL            
+.data 
+str_101: DW "¿Cuantos años tienes?",0 ; Guardo un string 
+.code 
+                   PUSH str_101    ; Apilo un string 
+                   PUSH met_printSln_95 ; Preparo para llamar al metodo System.printSln 
                    CALL            
                    RMEM 1          ; Voy a llamar a un metodo estatico (no void), reservo lugar para lo que devuelva 
-                   PUSH met_readNumero_100 ; Preparo para llamar al metodo SystemIO.readNumero 
+                   PUSH met_readNumero_98 ; Preparo para llamar al metodo SystemIO.readNumero 
                    CALL            
-                   STORE 0         ; Guardo parametro/var local x 
-                                   ; Comienzo del IF_104 
-                   RMEM 1          ; Reservo lugar para el valor de retorno 
-                   LOAD 0          ; Cargo parametro/var local x 
-                   PUSH met_esCapicua_97 
+                   STORE 0         ; Guardo parametro/var local age 
+                   LOAD 0          ; Cargo parametro/var local age 
+                   PUSH met_printI_89 ; Preparo para llamar al metodo System.printI 
                    CALL            
-                   BF IF_L1_104    
-.data 
-str_105: DW "El numero es capicua",0 ; Guardo un string 
-.code 
-                   PUSH str_105    ; Apilo un string 
-                   PUSH met_printS_90 ; Preparo para llamar al metodo System.printS 
-                   CALL            
-                   JUMP IF_L2_104  
-IF_L1_104: NOP             ;  
-.data 
-str_106: DW "El numero NO es capicua",0 ; Guardo un string 
-.code 
-                   PUSH str_106    ; Apilo un string 
-                   PUSH met_printS_90 ; Preparo para llamar al metodo System.printS 
-                   CALL            
-IF_L2_104: NOP             ;  
-                                   ; Fin del IF_104 
                    FMEM 1          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
-met_SystemIO_101: LOADFP          ; Guardar enlace dinamico 
+met_SystemIO_99: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
                    STOREFP         ; Reestablece el contexto 
                    RET 1           ; Retorna de la llamada, liberando parametros 
-met_readNumero_100: LOADFP          ; Guardar enlace dinamico 
+met_readNumero_98: LOADFP          ; Guardar enlace dinamico 
                    LOADSP          ; Inicializar el FP 
                    STOREFP         ;  
+                   RMEM 1          ; Se declaran 1 variables locales. Reservo lugar. 
                    RMEM 1          ; Voy a llamar a un metodo estatico (no void), reservo lugar para lo que devuelva 
                    PUSH met_read_86 ; Preparo para llamar al metodo System.read 
                    CALL            
+                   STORE 0         ; Guardo parametro/var local rta 
+                   LOAD 0          ; Cargo parametro/var local rta 
                    STORE 3         
-                   FMEM 0          ; Libero 0 variables locales 
+                   FMEM 1          ; Libero 1 variables locales 
                    STOREFP         
                    RET 0           
+                   FMEM 1          ; Libero las variables locales declaradas dentro de mi bloque 
                    STOREFP         ; Reestablece el contexto 
                    RET 0           ; Retorna de la llamada, liberando parametros 
 met_Object_84: LOADFP          ; Guardar enlace dinamico 

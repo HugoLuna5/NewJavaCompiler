@@ -5,25 +5,26 @@
  */
 package vm.instructions;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import vm.CeIVMAPIIOSubSys;
 import vm.CeIVMAPIMemory;
 import vm.CeIVMAPISpecialRegs;
 import vm.exceptions.CeIVMMemoryException;
 import vm.exceptions.CeIVMRuntimeException;
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
+
 /**
  *
  * @author Hugo Luna
  */
-public class CeIISAInstructionREAD extends CeIISAInstruction {
+public class CeIISAInstructionREADSTRING extends CeIISAInstruction {
 
-    public CeIISAInstructionREAD(String mnemonic) {
+    public CeIISAInstructionREADSTRING(String mnemonic) {
         super(mnemonic);
     }
 
     public int getOpcode() {
-        return 60;
+        return 59;
     }
 
     public int getNumParameters() {
@@ -39,4 +40,5 @@ public class CeIISAInstructionREAD extends CeIISAInstruction {
 
         regs.setPc(regs.getPc() + this.getInstructionSize());
     }
+    
 }

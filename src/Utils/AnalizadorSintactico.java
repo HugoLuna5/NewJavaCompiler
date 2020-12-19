@@ -58,6 +58,10 @@ public class AnalizadorSintactico {
         Metodo met = new Metodo(new Token("idMetVar", "read", 0), true, new TipoInt(), TS.claseActual);
         met.setCodigo(new NodoBloqueSystem("read"));
         TS.claseActual.agregarMetodo(met);
+        // Cargo metodos de System
+        // static string readString();
+        Metodo metString = new Metodo(new Token("idMetVar", "readString", 0), true, new TipoInt(), TS.claseActual);
+        TS.claseActual.agregarMetodo(metString);
         // static void printB(boolean b);
         LinkedList<VarParametro> listaPar = new LinkedList<VarParametro>();
         VarParametro varP = new VarParametro(new Token("idMetVar", "b", 0), new TipoBoolean());
@@ -359,6 +363,8 @@ public class AnalizadorSintactico {
     private NodoSentencia sentencia() throws Exception {
         NodoSentencia sent = null;
         NodoExpresion expr = null;
+        NodoAsignacion init = null;
+        NodoSentencia increment = null;
         Token temp = null;
         switch (lookAhead.getNombre()) {
             case "P_Puntocoma":
@@ -402,10 +408,18 @@ public class AnalizadorSintactico {
                 return new NodoWhile(temp, expr, sent);
 
             case "PR_For":
-                match("PR_For");
+                match("PR_For");//for
                 temp = lookBehind;
-                match("P_Parentesis_A");
-                return new NodoFor(temp, expr, sent);
+                match("P_Parentesis_A");//(
+                NodoPrimario prim = primario();
+                init = Asignacion(prim);
+                match("P_Puntocoma");
+                expr = expresion();//i<10
+                match("P_Puntocoma");//;
+                increment = sentencia();
+                match("P_Parentesis_C");//)
+                sent = sentencia();
+                return new NodoFor(temp, init,expr, increment,sent);
 
             case "PR_Return":
                 match("PR_Return");
@@ -445,6 +459,21 @@ public class AnalizadorSintactico {
         return expr;
     }
 
+    
+    private NodoAsignacion Asignacion(NodoPrimario pri)throws Exception {
+         Token temp = null;
+          if (lookAhead.comparar("O_Asignacion")) {
+            match("O_Asignacion");
+            temp = lookBehind;
+            NodoExpresion expr = expresion();
+            return new NodoAsignacion(pri, expr, temp);
+        }else if (!lookAhead.comparar("P_Puntocoma")) {
+            throw new ExcepcionSintacticaPersonalizada(lookAhead.getLinea(), "Se esperaba una asignacion o una sentencia");
+        }
+           temp = lookBehind;
+           return null;
+    }
+    
     private NodoSentencia asigOSentencia(NodoPrimario pri) throws Exception {
         Token temp = null;
         if (lookAhead.comparar("O_Asignacion")) {
@@ -908,6 +937,12 @@ public class AnalizadorSintactico {
         }
     }
 
+    /**
+     * Tipos de datos validos
+     *
+     * @return
+     * @throws Exception
+     */
     private TipoPrimitivo tipoPrimitivo() throws Exception {
         switch (lookAhead.getNombre()) {
             case "PR_Boolean":

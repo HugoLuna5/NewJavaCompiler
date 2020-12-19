@@ -13,8 +13,8 @@ class A {
 		m1 = (SystemIO.readNumero());
 		(System.printS("Ingrese un año: "));
 		a1 = (SystemIO.readNumero());
-		
-		(System.printS("Creando Persona 1"));
+
+		(System.printSln("Creando Persona 1"));
 		a = new Persona(d1,m1,a1);
 		
 		(System.printS("Ingrese un dia: "));
@@ -24,7 +24,7 @@ class A {
 		(System.printS("Ingrese un año: "));
 		a2 = (SystemIO.readNumero());
 		
-		(System.printS("Creando Persona 2"));
+		(System.printSln("Creando Persona 2"));
 		b = new Persona(d2,m2,a2);
 		
 		if (a.compareTo(b)) {
