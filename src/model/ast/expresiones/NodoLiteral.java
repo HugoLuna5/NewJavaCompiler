@@ -40,7 +40,13 @@ public class NodoLiteral extends NodoExpPrimario {
                 GenCod.gen("PUSH " + literal.getLexema(), "Apilo un " + literal.getLexema());
                 return new TipoInt();
             case "L_Real":
-                GenCod.gen("PUSH " + literal.getLexema(), "Apilo un " + literal.getLexema());
+
+                String labelR = "real_" + GenCod.generarEtiqueta();
+                GenCod.data();
+                GenCod.gen(labelR, "DW \"" + literal.getLexema() + "\",0", "Guardo un real como cadena");
+                GenCod.code();
+                GenCod.gen("PUSH " + labelR, "Apilo una cadena");
+
                 return new TipoFloat();
             case "L_Caracter":
                 char letra = '0';	// Parche. Letra despues va a tomar un valor.

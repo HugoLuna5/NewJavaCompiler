@@ -23,5 +23,5 @@ public class CeIISAInstructionSTOREPC extends CeIISAInstruction {
    protected void execute(ArrayList<Integer> params, CeIVMAPIMemory mem, CeIVMAPISpecialRegs regs, CeIVMAPIIOSubSys io) throws CeIVMMemoryException, CeIVMRuntimeException {
       regs.setPc(mem.read(regs.getSp()));
       regs.setSp(regs.getSp() + 1);
-   }
+   } 
 }

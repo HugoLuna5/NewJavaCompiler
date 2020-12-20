@@ -24,5 +24,5 @@ public class CeIISAInstructionSTOREHP extends CeIISAInstruction {
       regs.setHp(mem.read(regs.getSp()));
       regs.setSp(regs.getSp() + 1);
       regs.setPc(regs.getPc() + this.getInstructionSize());
-   }
+   } 
 }

@@ -24,5 +24,5 @@ public class CeIISAInstructionPUSH extends CeIISAInstruction {
       regs.setSp(regs.getSp() - 1);
       mem.write(regs.getSp(), (Integer)params.get(0));
       regs.setPc(regs.getPc() + this.getInstructionSize());
-   }
+   } 
 }

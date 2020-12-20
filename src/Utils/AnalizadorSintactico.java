@@ -55,12 +55,13 @@ public class AnalizadorSintactico {
         TS.claseActual = cla;
         // Cargo metodos de System
         // static int read();
-        Metodo met = new Metodo(new Token("idMetVar", "read", 0), true, new TipoInt(), TS.claseActual);
-        met.setCodigo(new NodoBloqueSystem("read"));
+        Metodo met = new Metodo(new Token("idMetVar", "readInt", 0), true, new TipoInt(), TS.claseActual);
+        met.setCodigo(new NodoBloqueSystem("readInt"));
         TS.claseActual.agregarMetodo(met);
         // Cargo metodos de System
         // static string readString();
-        Metodo metString = new Metodo(new Token("idMetVar", "readString", 0), true, new TipoInt(), TS.claseActual);
+        Metodo metString = new Metodo(new Token("idMetVar", "readString", 0), true, new TipoString(), TS.claseActual);
+        metString.setCodigo(new NodoBloqueSystem("readString"));
         TS.claseActual.agregarMetodo(metString);
         // static void printB(boolean b);
         LinkedList<VarParametro> listaPar = new LinkedList<VarParametro>();
@@ -115,12 +116,29 @@ public class AnalizadorSintactico {
         met = new Metodo(new Token("idMetVar", "printIln", 0), listaPar, true, new TipoVoid(), TS.claseActual);
         met.setCodigo(new NodoBloqueSystem("printIln"));
         TS.claseActual.agregarMetodo(met);
+
+        //Float
+        listaPar = new LinkedList<VarParametro>();
+        varP = new VarParametro(new Token("idMetVar", "f", 0), new TipoFloat());
+        listaPar.add(varP);
+        met = new Metodo(new Token("idMetVar", "printFloat", 0), listaPar, true, new TipoVoid(), TS.claseActual);
+        met.setCodigo(new NodoBloqueSystem("printFloat"));
+        TS.claseActual.agregarMetodo(met);
+
         // static void printSln(String s);
         listaPar = new LinkedList<VarParametro>();
         varP = new VarParametro(new Token("idMetVar", "s", 0), new TipoString());
         listaPar.add(varP);
         met = new Metodo(new Token("idMetVar", "printSln", 0), listaPar, true, new TipoVoid(), TS.claseActual);
         met.setCodigo(new NodoBloqueSystem("printSln"));
+        TS.claseActual.agregarMetodo(met);
+
+        //io
+        listaPar = new LinkedList<VarParametro>();
+        varP = new VarParametro(new Token("idMetVar", "s", 0), new TipoString());
+        listaPar.add(varP);
+        met = new Metodo(new Token("idMetVar", "printSIO", 0), listaPar, true, new TipoVoid(), TS.claseActual);
+        met.setCodigo(new NodoBloqueSystem("printSIO"));
         TS.claseActual.agregarMetodo(met);
     }
 
@@ -257,6 +275,7 @@ public class AnalizadorSintactico {
                 case "PR_Boolean":
                 case "PR_Char":
                 case "PR_Int":
+                case "PR_Float":
                 case "PR_String":
                     listaArgsFormales();
                     match("P_Parentesis_C");
@@ -279,6 +298,7 @@ public class AnalizadorSintactico {
             case "PR_Boolean":
             case "PR_Char":
             case "PR_Int":
+            case "PR_Float":
             case "PR_String":
                 Tipo tipo = tipo();
                 match("idMetVar");
@@ -338,9 +358,11 @@ public class AnalizadorSintactico {
             case "P_Puntocoma":
             case "PR_Boolean":
             case "PR_Char":
+            case "PR_Float":
             case "PR_Int":
             case "PR_String":
             case "idClase":
+            case "PR_Switch":
             case "PR_If":
             case "PR_While":
             case "PR_For":
@@ -373,6 +395,7 @@ public class AnalizadorSintactico {
             case "PR_Boolean":
             case "PR_Char":
             case "PR_Int":
+            case "PR_Float":
             case "PR_String":
             case "idClase":
                 Tipo tipo = tipo();
@@ -384,6 +407,16 @@ public class AnalizadorSintactico {
                 }
                 match("P_Puntocoma");
                 return new NodoDeclaracion(tipo, listaVars);
+
+            case "PR_Switch":
+                match("PR_Switch");
+                temp = lookBehind;
+                match("P_Parentesis_A");
+                //value
+                System.out.println(lookAhead);
+                match("P_Parentesis_C");
+
+                return null;
 
             case "PR_If":
                 match("PR_If");
@@ -412,14 +445,14 @@ public class AnalizadorSintactico {
                 temp = lookBehind;
                 match("P_Parentesis_A");//(
                 NodoPrimario prim = primario();
-                init = Asignacion(prim);
+                init = Asignacion(prim);//i=0;
                 match("P_Puntocoma");
-                expr = expresion();//i<10
+                expr = expresion();//i<10;
                 match("P_Puntocoma");//;
-                increment = sentencia();
+                increment = sentencia();//i=i+1
                 match("P_Parentesis_C");//)
                 sent = sentencia();
-                return new NodoFor(temp, init,expr, increment,sent);
+                return new NodoFor(temp, init, expr, increment, sent);
 
             case "PR_Return":
                 match("PR_Return");
@@ -459,21 +492,20 @@ public class AnalizadorSintactico {
         return expr;
     }
 
-    
-    private NodoAsignacion Asignacion(NodoPrimario pri)throws Exception {
-         Token temp = null;
-          if (lookAhead.comparar("O_Asignacion")) {
+    private NodoAsignacion Asignacion(NodoPrimario pri) throws Exception {
+        Token temp = null;
+        if (lookAhead.comparar("O_Asignacion")) {
             match("O_Asignacion");
             temp = lookBehind;
             NodoExpresion expr = expresion();
             return new NodoAsignacion(pri, expr, temp);
-        }else if (!lookAhead.comparar("P_Puntocoma")) {
+        } else if (!lookAhead.comparar("P_Puntocoma")) {
             throw new ExcepcionSintacticaPersonalizada(lookAhead.getLinea(), "Se esperaba una asignacion o una sentencia");
         }
-           temp = lookBehind;
-           return null;
+        temp = lookBehind;
+        return null;
     }
-    
+
     private NodoSentencia asigOSentencia(NodoPrimario pri) throws Exception {
         Token temp = null;
         if (lookAhead.comparar("O_Asignacion")) {
@@ -617,6 +649,7 @@ public class AnalizadorSintactico {
             case "PR_False":
             case "PR_True":
             case "L_Entero":
+            case "L_Real":
             case "L_Caracter":
             case "L_String":
             case "P_Parentesis_A":
@@ -643,6 +676,7 @@ public class AnalizadorSintactico {
             case "PR_False":
             case "PR_True":
             case "L_Entero":
+            case "L_Real":
             case "L_Caracter":
             case "L_String":
             case "P_Parentesis_A":
@@ -859,6 +893,7 @@ public class AnalizadorSintactico {
             case "PR_False":
             case "PR_True":
             case "L_Entero":
+            case "L_Real":
             case "L_Caracter":
             case "L_String":
             case "P_Parentesis_A":
@@ -877,6 +912,7 @@ public class AnalizadorSintactico {
             case "PR_False":
             case "PR_True":
             case "L_Entero":
+            case "L_Real":
             case "L_Caracter":
             case "L_String":
                 return literal();
@@ -896,6 +932,7 @@ public class AnalizadorSintactico {
             case "PR_False":
             case "PR_True":
             case "L_Entero":
+            case "L_Real":
             case "L_Caracter":
             case "L_String":
                 match(lookAhead.getNombre());
@@ -951,6 +988,9 @@ public class AnalizadorSintactico {
             case "PR_Int":
                 match(lookAhead.getNombre());
                 return new TipoInt();
+            case "PR_Float":
+                match(lookAhead.getNombre());
+                return new TipoFloat();
             case "PR_Char":
                 match(lookAhead.getNombre());
                 return new TipoChar();

@@ -33,12 +33,15 @@ public class CeIISAInstructionREADSTRING extends CeIISAInstruction {
 
     protected void execute(ArrayList<Integer> params, CeIVMAPIMemory mem, CeIVMAPISpecialRegs regs, CeIVMAPIIOSubSys io) throws CeIVMMemoryException, CeIVMRuntimeException {
         regs.setSp(regs.getSp() - 1);
-
-        String value = JOptionPane.showInputDialog("Ingresa un dato");
-        System.out.println(value);
-        mem.write(regs.getSp(), value.length());
-
-        regs.setPc(regs.getPc() + this.getInstructionSize());
+        try {
+            String value = "";
+            while (!value.isEmpty()) {
+                value = JOptionPane.showInputDialog("Ingresa un dato de tipo cadena:");
+            }
+            mem.writeStr(regs.getSp(), value);
+            regs.setPc(regs.getPc() + this.getInstructionSize());
+        } catch (NullPointerException nullPointer) {
+            System.err.println("Dato invalido: " + nullPointer.getMessage());
+        }
     }
-    
 }

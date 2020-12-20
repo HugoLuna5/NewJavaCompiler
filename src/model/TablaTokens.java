@@ -39,10 +39,14 @@ public class TablaTokens {
             tabla.put("PR_Boolean", "boolean");
             tabla.put("PR_Char", "char");
             tabla.put("PR_Int", "int");
-            tabla.put("float", "PR_Float");
+            tabla.put("PR_Float", "float");
             tabla.put("PR_String", "String");
             tabla.put("PR_If", "if");
             tabla.put("PR_Else", "else");
+            tabla.put("PR_Switch", "switch");
+            tabla.put("PR_Case","case");
+            tabla.put("PR_Break", "break");
+            tabla.put("PR_Default","default");
             tabla.put("PR_While", "while");
             tabla.put("PR_For", "for");
             tabla.put("PR_Return", "return");
@@ -95,6 +99,10 @@ public class TablaTokens {
             tabla.put("String", "PR_String");
             tabla.put("if", "PR_If");
             tabla.put("else", "PR_Else");
+            tabla.put("switch", "PR_Switch");
+            tabla.put("case","PR_Case");
+            tabla.put("break", "PR_Break");
+            tabla.put("default","PR_Default");
             tabla.put("while", "PR_While");
             tabla.put("for", "PR_For");
             tabla.put("return", "PR_Return");

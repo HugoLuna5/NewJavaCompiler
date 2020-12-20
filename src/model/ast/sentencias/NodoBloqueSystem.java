@@ -22,8 +22,8 @@ public class NodoBloqueSystem extends NodoBloque {
                 GenCod.gen("READSTRING");
                 GenCod.gen("STORE 3");
                 break;
-            case "read":
-                GenCod.gen("READ");
+            case "readInt":
+                GenCod.gen("READINT");
                 GenCod.gen("STORE 3");
                 break;
             case "printB":
@@ -45,6 +45,14 @@ public class NodoBloqueSystem extends NodoBloque {
             case "printSln":
                 GenCod.gen("LOAD 3");
                 GenCod.gen("SPRINT");
+                break;
+            case "printSIO":
+                GenCod.gen("LOAD 3");
+                GenCod.gen("SPRINTIO");
+                break;
+            case "printFloat":
+                GenCod.gen("LOAD 3");
+                GenCod.gen("FLOATPRINT");
                 break;
         }
         switch (tipoBloque) {

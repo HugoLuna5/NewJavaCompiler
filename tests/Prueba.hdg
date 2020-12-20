@@ -1,11 +1,18 @@
 class Prueba { 
 
      static void main() { 
+		String name;
 		int age;
-		(System.printSln("Hola Mundo"));
+		
+		(System.printSln("¿Como te llamas?"));
+		name = (SystemIO.readString());
+		(System.printS("Hola "));
+		(System.printSIO(name));
+		
 		(System.printSln("¿Cuantos años tienes?"));
 		age = (SystemIO.readNumero());
 		(System.printI(age));
+		
 		
          
      }
@@ -14,12 +21,20 @@ class Prueba {
 class SystemIO extends System {
 
 	
+	static String readTexto(){
+		String rta;
+
+		rta = (System.readString());
+		return rta;
+			
+	}
+	
 	static int readNumero() {
 	
 		int rta;
 		
 		 
-		rta = (System.read());
+		rta = (System.readInt());
 		
 		return rta;
 	}

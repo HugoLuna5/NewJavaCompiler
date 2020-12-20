@@ -23,6 +23,10 @@ public class Helper {
         return (chr>='0' && chr<='9');
     }
 
+    public static boolean esPunto(char chr) {
+        return (chr =='.');
+    }
+    
     public static boolean esUnderscore(char chr) {
         return (chr=='_');
     }

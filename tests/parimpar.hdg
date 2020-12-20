@@ -4,10 +4,13 @@ class ParImpar {
 		
 		//int numero, op;
 		int numero;
-		numero = (SystemIO.readNumero());
+		String txt;
+		
+		txt = (SystemIO.readTexto());
 		
 
-(System.printI(numero));
+
+(System.printSIO(txt));
 
 		//op = numero % 2;
 /*
@@ -25,13 +28,20 @@ class ParImpar {
 
 class SystemIO extends System {
 
+	static String readTexto(){
+		String rta;
+
+		rta = (System.readString());
+		return rta;
+			
+	}
 	
 	static int readNumero() {
 	
 		int rta;
 		
 		 
-		rta = (System.readString());
+		rta = (System.readInt());
 		
 		return rta;
 	}

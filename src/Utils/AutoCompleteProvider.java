@@ -44,12 +44,22 @@ public class AutoCompleteProvider {
         // Add a couple of "shorthand" completions. These completions don't
         // require the input text to be the same thing as the replacement text.
         provider.addCompletion(new ShorthandCompletion(provider, "main", "static void main() {}"));
-        provider.addCompletion(new ShorthandCompletion(provider, "in", "(System.read());"));
-        provider.addCompletion(new ShorthandCompletion(provider, "printIln","(System.printIln());"));
-        provider.addCompletion(new ShorthandCompletion(provider, "printBln", "(System.printBln());"));
-        provider.addCompletion(new ShorthandCompletion(provider, "printSln", "(System.printSln());"));
+        provider.addCompletion(new ShorthandCompletion(provider, "iInt", "(System.readInt());", "El flujo de entrada \"estándar\". Esta secuencia ya está abierta y lista para proporcionar datos de entrada de tipo entero"));
+        provider.addCompletion(new ShorthandCompletion(provider, "iStr", "(System.readString());", "El flujo de entrada \"estándar\". Esta secuencia ya está abierta y lista para proporcionar datos de entrada de tipo cadena"));
+        
+        provider.addCompletion(new ShorthandCompletion(provider, "printIln","(System.printIln());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo entero con salto de linea. "));
+        provider.addCompletion(new ShorthandCompletion(provider, "printI","(System.printIln());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo entero. "));
+
+        provider.addCompletion(new ShorthandCompletion(provider, "printIO","(System.printSIO());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo cadena(Solo los accede a datos introducidos en tiempo de ejecución). "));
+        
+        provider.addCompletion(new ShorthandCompletion(provider, "printBln", "(System.printBln());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo booleano con salto de linea. "));
+        provider.addCompletion(new ShorthandCompletion(provider, "printB", "(System.printBln());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo booleano. "));
+
+        provider.addCompletion(new ShorthandCompletion(provider, "printSln", "(System.printSln());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo cadena con salto de linea. "));
+        provider.addCompletion(new ShorthandCompletion(provider, "printS", "(System.printS());", "El flujo de salida \"estándar\". Esta secuencia ya está abierta y lista para aceptar datos de salida de tipo cadena. "));
 
 
+        
         return provider;
 
     }

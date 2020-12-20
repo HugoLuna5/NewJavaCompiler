@@ -86,7 +86,7 @@ public class NodoFor extends NodoSentencia {
             throw new ExcepcionSemanticaPersonalizada(identificador.getLinea(), "La condicion del For no es una expresion logica");
         }
                
-        sentencia.chequear();						// Traduccion de S
+        sentencia.chequear();
         incremento.chequear();
          
         GenCod.gen("JUMP FOR_L1_" + str);

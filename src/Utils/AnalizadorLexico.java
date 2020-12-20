@@ -6,6 +6,8 @@ import exceptions.lexicas.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class AnalizadorLexico {
 
@@ -44,11 +46,26 @@ public class AnalizadorLexico {
                 token = new Token("idMetVar",lexema,nroLinea);
             }
         } else if (Helper.esDigito(actual)) { // comienza con un digito?
-            while(Helper.esDigito(actual)) {
-                lexema += actual;
+            lexema +=actual;
+            boolean isReal = false;
+            while(true){
                 actual = dameChar();
+                if (Helper.esDigito(actual)) {
+                    lexema +=actual;
+                }else if(Helper.esPunto(actual)){
+                    lexema +=actual;
+                    isReal = true;
+                }else{
+                    break;
+                }
             }
-            token = new Token("L_Entero",lexema,nroLinea);
+            
+            if (isReal) {
+               token = new Token("L_Real",lexema,nroLinea); 
+            }else{
+                token = new Token("L_Entero",lexema,nroLinea);
+            }
+            
         } else switch (actual)  { // comienza con un simbolo
             case EOF:
             case '{' :
