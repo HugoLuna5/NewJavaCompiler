@@ -4,122 +4,60 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/AnalizadorSintactico.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMToken.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIIOSubSys.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREFP.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionNOT.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionDEREF.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoLlamadaEstatica.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionDUP.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionNEG.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionADD.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoThis.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionNE.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/Tipo.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSUB.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREHL.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionBF.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionGE.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSWAP.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionREADSTRING.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREREF.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSUB.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTORESP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/encadenados/NodoLlamadaEncadenada.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADREF.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionREAD.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionRET.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoSentencia.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionAND.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionJUMP.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/GenCod.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIASMParseException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoChar.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoDeclaracion.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoNull.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIExecutionEngine.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoAsignacion.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMRuntimeException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CUP$CeIASMParser$actions.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionDIV.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREHP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/TablaTokens.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoMetodo.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoFor.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMWriteProtectedCodeMemoryException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/encadenados/NodoEncadenado.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionCPRINT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoPrimitivo.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMAPIInvalidStateException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMHaltException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoBloque.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLE.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoBloqueSystem.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADPC.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOAD.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/TextAreaOutputStream.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoFloat.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREPC.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoClase.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/encadenados/NodoIdEncadenado.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPI.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADHP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPRNLN.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMParser.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPOP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionIPRINT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoConstructor.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoSentenciaLlamada.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionGT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoLiteral.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoLlamadaDirecta.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREFP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/sym.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/Metodo.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionNOT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMAssemblerLinkerAndLoader.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoExpPrimario.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREHL.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoExpresion.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionGE.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionBF.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIASMLangProcessException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSWAP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoVariable.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionREADSTRING.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMLexicalAnalyzer.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoWhile.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/Clase.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoExpParentizada.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMAssembledLocation.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoExpresionUnaria.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionAND.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/RedoAction.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/Helper.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPUSHREAL.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionEQ.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPUSH.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoExpresionBinaria.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionBT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/sentencias/NodoSentenciaVacia.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionRMEM.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPISpecialRegs.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADHL.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMMemoryException.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionDIV.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADFP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Utils/AnalizadorLexico.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIASMAssembleException.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTORE.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIMemory.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionCPRINT.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADSP.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionMUL.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIISA.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/tipos/TipoBoolean.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIASMLoadException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/Token.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLE.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionMOD.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSPRINTIO.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADPC.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionREADINT.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionHALT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ts/variables/VarInstancia.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOAD.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSTOREPC.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionOR.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionCALL.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPRNLN.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionSPRINT.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMPendingLabel.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMDEPException.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionLOADHP.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionPOP.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionNOP.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMAPIException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstruction.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/model/ast/expresiones/NodoPrimario.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionFMEM.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionIPRINT.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Exceptions/semanticas/ExcepcionExpBinMalFormada.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionFLOATPRINT.java</file>
             <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionBPRINT.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionFMEM.java</file>
+            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/instructions/CeIISAInstructionGT.java</file>
         </group>
     </open-files>
 </project-private>

@@ -36,7 +36,7 @@ public class CeIISAInstructionREADINT extends CeIISAInstruction {
 
         try {
             String value = "";
-            while (!value.isEmpty()) {
+           while (value.isEmpty()) {
                 value = JOptionPane.showInputDialog("Ingresa un dato de tipo cadena:");
             }
             int val = Integer.parseInt(value);

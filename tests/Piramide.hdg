@@ -1,0 +1,17 @@
+class Piramide { 
+
+     static void main() { 
+     	int cantidad, i, j;
+
+        	cantidad = 10;
+		for(i=1; i <= cantidad; i=i+1;){
+
+			for(j=1; j <=i; j=j+1;){
+				(System.printC('*'));
+				
+			}
+			(System.println());
+			
+		}
+     }
+}

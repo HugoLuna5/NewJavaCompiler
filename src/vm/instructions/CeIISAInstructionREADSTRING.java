@@ -35,7 +35,7 @@ public class CeIISAInstructionREADSTRING extends CeIISAInstruction {
         regs.setSp(regs.getSp() - 1);
         try {
             String value = "";
-            while (!value.isEmpty()) {
+            while (value.isEmpty()) {
                 value = JOptionPane.showInputDialog("Ingresa un dato de tipo cadena:");
             }
             mem.writeStr(regs.getSp(), value);

@@ -28,7 +28,7 @@ class FibonacciRecursive {
 	
 	{
 		int numero;
-	char opcion;
+		char opcion;
 		numero = 7;
 		
 		(System.printIln(fibonacci(numero)));
