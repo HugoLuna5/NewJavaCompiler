@@ -1,4 +1,4 @@
-class Hello { 
+class TestFloat { 
 
      static void main() { 
 

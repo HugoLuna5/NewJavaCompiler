@@ -38,6 +38,7 @@ public class CeIISAInstructionREADSTRING extends CeIISAInstruction {
             while (value.isEmpty()) {
                 value = JOptionPane.showInputDialog("Ingresa un dato de tipo cadena:");
             }
+            //System.out.println(value);
             mem.writeStr(regs.getSp(), value);
             regs.setPc(regs.getPc() + this.getInstructionSize());
         } catch (NullPointerException nullPointer) {

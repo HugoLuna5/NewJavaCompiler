@@ -40,6 +40,7 @@ public class CeIISAInstructionREADINT extends CeIISAInstruction {
                 value = JOptionPane.showInputDialog("Ingresa un dato de tipo cadena:");
             }
             int val = Integer.parseInt(value);
+            //System.out.println(value);
             mem.write(regs.getSp(), val);
 
             regs.setPc(regs.getPc() + this.getInstructionSize());

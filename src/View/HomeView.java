@@ -5,8 +5,11 @@
  */
 package View;
 
+import Utils.Utils;
 import javax.swing.*;
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import org.fife.ui.rtextarea.*;
 import org.fife.ui.rsyntaxtextarea.*;
 
@@ -33,7 +36,7 @@ public class HomeView extends javax.swing.JFrame {
         sp = new RTextScrollPane(textEditor);
         sp.setSize(850, 780);
         containerEditor.add(sp);
-
+       setIconImage(new Utils().getImageLocal("icon-16.png"));
     }
 
     
@@ -73,6 +76,9 @@ public class HomeView extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         executeProgramMenu = new javax.swing.JMenu();
         executeProgram = new javax.swing.JMenuItem();
+        menuDebug = new javax.swing.JMenu();
+        modeDebug = new javax.swing.JMenuItem();
+        executeProgramSbS = new javax.swing.JMenuItem();
         menuConfig = new javax.swing.JMenu();
         actionEditorConfig = new javax.swing.JMenuItem();
         actionChangeTheme = new javax.swing.JMenuItem();
@@ -195,13 +201,30 @@ public class HomeView extends javax.swing.JFrame {
         executeProgramMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/play.png"))); // NOI18N
         executeProgramMenu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         executeProgramMenu.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        executeProgramMenu.setPreferredSize(new java.awt.Dimension(75, 25));
+        executeProgramMenu.setMaximumSize(new java.awt.Dimension(55, 25));
+        executeProgramMenu.setMinimumSize(new java.awt.Dimension(55, 25));
+        executeProgramMenu.setPreferredSize(new java.awt.Dimension(55, 25));
 
         executeProgram.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
         executeProgram.setText("Ejecutar");
         executeProgramMenu.add(executeProgram);
 
         jMenuBar1.add(executeProgramMenu);
+
+        menuDebug.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/bug.png"))); // NOI18N
+        menuDebug.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        menuDebug.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        menuDebug.setMaximumSize(new java.awt.Dimension(30, 25));
+        menuDebug.setMinimumSize(new java.awt.Dimension(30, 25));
+        menuDebug.setPreferredSize(new java.awt.Dimension(30, 25));
+
+        modeDebug.setText("Modo depuración");
+        menuDebug.add(modeDebug);
+
+        executeProgramSbS.setText("Ejecutar SbS");
+        menuDebug.add(executeProgramSbS);
+
+        jMenuBar1.add(menuDebug);
 
         menuConfig.setText("Configuración");
 
@@ -244,6 +267,7 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JPanel containerEditor;
     public javax.swing.JMenuItem executeProgram;
     public javax.swing.JMenu executeProgramMenu;
+    public javax.swing.JMenuItem executeProgramSbS;
     public javax.swing.JMenuItem exitProg;
     public javax.swing.JTree filesTree;
     private javax.swing.JMenu jMenu1;
@@ -255,6 +279,8 @@ public class HomeView extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JPanel mainContainer;
     private javax.swing.JMenu menuConfig;
+    private javax.swing.JMenu menuDebug;
+    public javax.swing.JMenuItem modeDebug;
     public javax.swing.JMenuItem newDoc;
     public javax.swing.JMenuItem openDoc;
     public javax.swing.JMenuItem openProject;

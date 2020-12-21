@@ -18,7 +18,7 @@ class Persona {
 	}
 	
 	dynamic Persona buscarEnAgenda(int num) {
-		return new Persona("Cacho","Comahue",33333);
+		return new Persona("Juan","Perez",33333);
 	}
 	
 	dynamic void mostrar(){

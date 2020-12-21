@@ -1,4 +1,8 @@
-// Programa de prueba. 
+/**
+ En matemáticas, la palabra capicúa
+ se refiere a cualquier número que se lee igual 
+ de izquierda a derecha que de derecha a izquierda
+ */
 
 class A {
 
@@ -37,7 +41,7 @@ class SystemIO extends System {
 	
 	static int readNumero() {
 
-		return (System.read());
+		return (System.readInt());
 	}
 
 }

@@ -73,14 +73,8 @@ class SystemIO extends System {
 	static int readNumero() {
 	
 		int rta, aux, num;
-		rta = 0;
-		num = 0;
-		while ((num!=10) && (num!=13)) { // mientras que no sea enter
-			num = (System.read());
-			aux = num - 48;
-			if ((num!=10) && (num!=13))
-				rta = rta * 10 + aux;
-		}
+		rta = (System.readInt());
+		
 		return rta;
 	}
 

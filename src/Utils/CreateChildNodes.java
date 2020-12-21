@@ -46,7 +46,7 @@ public class CreateChildNodes {
                     node.add(childNode);
                     createChildren(file, childNode);
                 } else {
-                    Optional<String> extOp = getExtensionByStringHandling(file.getName());
+                    Optional<String> extOp = new Utils().getExtensionByStringHandling(file.getName());
                     String ext = extOp.get();
                     if (ext.equalsIgnoreCase("hdg")) {
                         DefaultMutableTreeNode childNode
@@ -64,9 +64,5 @@ public class CreateChildNodes {
         }
     }
 
-    public Optional<String> getExtensionByStringHandling(String filename) {
-        return Optional.ofNullable(filename)
-                .filter(f -> f.contains("."))
-                .map(f -> f.substring(filename.lastIndexOf(".") + 1));
-    }
+   
 }

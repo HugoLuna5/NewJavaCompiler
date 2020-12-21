@@ -1,0 +1,19 @@
+class Factorial { 
+
+     static void main() { 
+		int fact, num;
+		fact = 1;
+		num = 0;
+		(System.printSln("Introduce un número"));
+		num = (System.readInt());
+		int ind;
+		for(ind=1; ind <= num; ind=ind+1;){
+			fact = fact * ind;
+		}
+
+		(System.printS("Factorial de "));
+		(System.printI(num));
+		(System.printS(" es "));
+		(System.printI(fact));
+     }
+}

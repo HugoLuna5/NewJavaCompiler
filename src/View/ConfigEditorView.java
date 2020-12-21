@@ -5,6 +5,10 @@
  */
 package View;
 
+import Utils.Utils;
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Hugo Luna
@@ -16,6 +20,7 @@ public class ConfigEditorView extends javax.swing.JFrame {
      */
     public ConfigEditorView() {
         initComponents();
+        setIconImage(new Utils().getImageLocal("icon-16.png"));
     }
 
     /**

@@ -1,0 +1,38 @@
+class UnicoMain{
+	
+	static void main() {
+		Test test;
+		test = new Test(21, "Hugo");
+
+		(System.printS(test.getName()));
+		
+		
+	}
+
+	
+}
+
+
+class Test {
+	
+	public int edad;
+	public String name;
+
+	Test(int edad, String name){
+		this.edad = edad;
+		this.name = name;	
+	}
+
+
+	dynamic int getEdad(){
+		return edad;	
+	}
+
+	dynamic String getName(){
+		return name;	
+	}
+	
+
+	
+}
+

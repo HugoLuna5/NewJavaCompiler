@@ -1,9 +1,0 @@
-// Verificar que el codigo ceiasm este ensamblando bien la etiqueta del main generada
-
-class A {
-
-	static void main() {
-	
-	}
-}
-
