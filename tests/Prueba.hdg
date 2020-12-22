@@ -4,12 +4,12 @@ class Prueba {
 		String name;
 		int age;
 		
-		(System.printSln("¿Como te llamas?"));
+		(System.printSln("Como te llamas?"));
 		name = (SystemIO.readString());
 		(System.printS("Hola "));
 		(System.printSIO(name));
 		
-		(System.printSln("¿Cuantos años tienes?"));
+		(System.printSln("Cuantos años tienes?"));
 		age = (SystemIO.readNumero());
 		(System.printI(age));
 		

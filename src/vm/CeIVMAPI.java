@@ -26,7 +26,7 @@ public class CeIVMAPI {
    private static int[] $SWITCH_TABLE$ar$edu$uns$cs$cei$ceivmapi$CeIVMAPI$CeIVMAPIPhase;
 
    public String getVersion() {
-      return "1.1.0";
+      return "0.0.1";
    }
 
    public CeIVMAPI() {

@@ -14,19 +14,19 @@ public class CeIVMAPIIOSubSys {
 
    CeIVMAPIIOSubSys(InputStream in, OutputStream out, OutputStream err, String encoding) {
       try {
-         this.inputReader = new BufferedReader(new InputStreamReader(in, encoding));
+         this.inputReader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
       } catch (UnsupportedEncodingException var8) {
          this.inputReader = new BufferedReader(new InputStreamReader(in));
       }
 
       try {
-         this.outputStream = new PrintStream(out, false, encoding);
+         this.outputStream = new PrintStream(out, false, "UTF-8");
       } catch (UnsupportedEncodingException var7) {
          this.outputStream = new PrintStream(out, false);
       }
 
       try {
-         this.errorStream = new PrintStream(err, false, encoding);
+         this.errorStream = new PrintStream(err, false, "UTF-8");
       } catch (UnsupportedEncodingException var6) {
          this.errorStream = new PrintStream(err, false);
       }

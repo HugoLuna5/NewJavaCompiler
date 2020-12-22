@@ -61,7 +61,7 @@ public class ConfigEditorController {
     
     private void close(){
         configEditorView.setVisible(false);
-        new HomeViewController(new HomeView());
+        new HomeViewController(new HomeView() ,null);
     }
 
 }

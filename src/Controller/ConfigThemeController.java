@@ -115,6 +115,6 @@ public class ConfigThemeController {
 
     private void close() {
         configThemeView.setVisible(false);
-        new HomeViewController(new HomeView());
+        new HomeViewController(new HomeView(), null);
     }
 }

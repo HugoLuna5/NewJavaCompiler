@@ -32,6 +32,7 @@ class A {
 		} else {
 			(System.printS("Las personas cumplen en dias distintos"));
 		}
+
 		
 	}
 

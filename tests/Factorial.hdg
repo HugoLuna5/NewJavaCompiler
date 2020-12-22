@@ -4,7 +4,7 @@ class Factorial {
 		int fact, num;
 		fact = 1;
 		num = 0;
-		(System.printSln("Introduce un nÃºmero"));
+		(System.printSln("Introduce un número"));
 		num = (System.readInt());
 		int ind;
 		for(ind=1; ind <= num; ind=ind+1;){

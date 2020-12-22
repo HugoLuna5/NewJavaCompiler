@@ -94,7 +94,7 @@ public class HomeViewController implements SearchListener {
     private Utils utils;
     private boolean validation = true;
     private String salida = null;
-    private CeIVMAPI ceivmApiDebug; 
+    private CeIVMAPI ceivmApiDebug;
 
     /**
      * Custom vars to editor
@@ -121,14 +121,18 @@ public class HomeViewController implements SearchListener {
     private JScrollPane jScrollPane1;
     private JButton sendData;
 
-    public HomeViewController(HomeView homeView) {
+    public HomeViewController(HomeView homeView, File file) {
         this.homeView = homeView;
         homeView.setVisible(true);
         initVars();
         initSearchDialogs();
         loadTreeDefault("Explorador");
-
         events();
+        if (file != null) {
+            openFile = file;
+            loadDataInTree(openFile.getParent());
+            openFileTree(openFile);
+        }
     }
 
     private void initVars() {
@@ -194,28 +198,27 @@ public class HomeViewController implements SearchListener {
         homeView.executeProgram.addActionListener((ActionEvent ae) -> {
             runProgram();
         });
-        
+
         homeView.modeDebug.addActionListener((ActionEvent ae) -> {
             runProgramStepByStep();
         });
         homeView.executeProgramSbS.addActionListener((ActionEvent ae) -> {
-            
+
             if (ceivmApiDebug != null) {
                 try {
                     for (int i = 0; i < 10; i++) {
-                       ceivmApiDebug.executeNextStep();
-                       
-                        
+                        ceivmApiDebug.executeNextStep();
+
                     }
                 } catch (CeIVMAPIInvalidStateException ex) {
                     System.err.println(ex.getMessage());
                 } catch (CeIVMRuntimeException ex) {
                     System.err.println(ex.getMessage());
                 } catch (CeIVMMemoryException ex) {
-                   System.err.println(ex.getMessage());
+                    System.err.println(ex.getMessage());
                 }
-                
-            }else{
+
+            } else {
                 System.err.println("Nulo");
             }
         });
@@ -401,10 +404,8 @@ public class HomeViewController implements SearchListener {
         }, 1000);
 
     }
-    
-   
-  
-      private void runProgramStepByStep() {
+
+    private void runProgramStepByStep() {
 
         if (frameDialog != null) {
             frameDialog.setVisible(false);
@@ -477,12 +478,11 @@ public class HomeViewController implements SearchListener {
                                 ceivmApiDebug.initializeVM();
                                 //ceivmApiDebug.executeToCompletion();
 
-                               /*
+                                /*
                                  new Helper().setTimeout(() -> {
                                     archSalida.delete();
                                 }, 1500);
-                                */
-
+                                 */
                             } catch (FileNotFoundException var4) {
                                 System.err.println("Error: No se pudo abrir el archivo " + salida + ".\n");
                             } catch (Exception var5) {
@@ -668,14 +668,14 @@ public class HomeViewController implements SearchListener {
             homeView.filesTree.setCellRenderer(renderer);
             homeView.filesTree.setShowsRootHandles(true);
             homeView.filesTree.setRootVisible(true);
-           
+
             Font f = new Font("SansSerif", Font.PLAIN, 11);
 
             homeView.filesTree.setFont(f);
             homeView.filesTree.updateUI();
             CreateChildNodes ccn
                     = new CreateChildNodes(fileRoot, root);
-             homeView.filesTree.expandRow(0);
+            homeView.filesTree.expandRow(0);
             //new Thread(ccn).start();
 
             try {
