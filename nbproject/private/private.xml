@@ -2,26 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMToken.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIIOSubSys.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/sym.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIExecutionEngine.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMAssembledLocation.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMAssemblerLinkerAndLoader.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPISpecialRegs.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMRuntimeException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CUP$CeIASMParser$actions.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMMemoryException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPIMemory.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIVMAPI.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMParser.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMPendingLabel.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMWriteProtectedCodeMemoryException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/exceptions/CeIVMHaltException.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/Controller/HomeViewController.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIISA.java</file>
-            <file>file:/C:/Users/Hugo%20Luna/Documents/NetBeansProjects/NewJavaCompiler/src/vm/CeIASMLexicalAnalyzer.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
